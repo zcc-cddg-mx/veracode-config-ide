@@ -3,7 +3,7 @@
 > **Nota:** los findings documentados corresponden a casos de prueba iniciales (2026-09-22).
 > Los conteos y archivos afectados pueden cambiar con cada nueva versión del código.
 
-## Frontend — ov-arizona-frontend-ecuador (2026-09-22)
+## Frontend *(caso de prueba: ov-arizona-frontend-ecuador — 2026-09-22)*
 
 **30 findings Medium**
 
@@ -38,7 +38,7 @@ por Angular's DomSanitizer o es contenido estático, marcar como "Not Exploitabl
 
 ---
 
-## Backend — ov-arizona-backend-ecuador (2026-09-22)
+## Backend *(caso de prueba: ov-arizona-backend-ecuador — 2026-09-22)*
 
 **Score: 98/100 — PCI Did Not Pass** · 5 findings Medium · 0 High / Very High
 

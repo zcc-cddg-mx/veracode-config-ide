@@ -21,7 +21,7 @@ para el CAB técnico y auditorías de seguridad.
 
 1. Ir a [https://analysiscenter.veracode.com](https://analysiscenter.veracode.com)
 2. Login via SSO Okta EMEA
-3. Navegar a `LATAM_Ecuador_ov-arizona-core` → sandbox correspondiente → build más reciente
+3. Navegar a tu aplicación (caso de prueba: `LATAM_Ecuador_ov-arizona-core`) → sandbox correspondiente → build más reciente
 4. Pestaña **Reports** → **Download PDF**
 
 ---

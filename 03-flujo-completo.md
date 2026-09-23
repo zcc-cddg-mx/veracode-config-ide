@@ -42,7 +42,7 @@ Ver [`scripts/pipeline-scan.sh`](scripts/pipeline-scan.sh).
 
 1. Ir a [https://analysiscenter.veracode.com](https://analysiscenter.veracode.com)
 2. Login via SSO Okta EMEA
-3. Navegar a: `LATAM_Ecuador_ov-arizona-core` → sandbox correspondiente
+3. Navegar a tu aplicación (caso de prueba: `LATAM_Ecuador_ov-arizona-core`) → sandbox correspondiente
 4. New Scan → subir artefactos (ver [04-artefactos.md](04-artefactos.md))
 5. Iniciar escaneo
 

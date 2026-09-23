@@ -6,7 +6,7 @@ durante el Pipeline Scan (Paso 1 del flujo). No es necesario compilar manualment
 > **Nota:** los tamaños, conteos de findings y número de artefactos generados corresponden
 > a casos de prueba iniciales. Pueden variar según la versión del código y el estado del build.
 
-## Frontend — ov-arizona-frontend-ecuador
+## Frontend *(caso de prueba: ov-arizona-frontend-ecuador)*
 
 | Artefacto | Tamaño | Findings | Subir? |
 |---|---|---|---|
@@ -16,7 +16,7 @@ durante el Pipeline Scan (Paso 1 del flujo). No es necesario compilar manualment
 El warning `NpmPackager build/install failed` es esperado — reducción menor de scope,
 no afecta la calidad del escaneo.
 
-## Backend — ov-arizona-backend-ecuador
+## Backend *(caso de prueba: ov-arizona-backend-ecuador)*
 
 La extensión genera 59 artefactos pero solo 3 tienen findings:
 
