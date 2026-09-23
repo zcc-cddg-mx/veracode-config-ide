@@ -3,6 +3,9 @@
 Los artefactos son generados automáticamente por la extensión VS Code en `/tmp/tempStaticScanDir/`
 durante el Pipeline Scan (Paso 1 del flujo). No es necesario compilar manualmente.
 
+> **Nota:** los tamaños, conteos de findings y número de artefactos generados corresponden
+> a casos de prueba iniciales. Pueden variar según la versión del código y el estado del build.
+
 ## Frontend — ov-arizona-frontend-ecuador
 
 | Artefacto | Tamaño | Findings | Subir? |
@@ -37,7 +40,7 @@ Si el build falla en el primer intento, reintenta automáticamente. En el segund
 generalmente tiene éxito porque los JARs ya existen en el workspace.
 
 Si los artefactos no están en `/tmp/tempStaticScanDir/`, abrir el proyecto backend en VS Code
-y esperar a que la extensión ejecute el scan completo (~90 min).
+y esperar a que la extensión ejecute el scan completo (~90 min en casos de prueba).
 
 ## Verificar integridad de artefactos
 
