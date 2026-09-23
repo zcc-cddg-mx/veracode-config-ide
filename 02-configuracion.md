@@ -1,4 +1,4 @@
-# Configuración: WSL2, credenciales y herramientas
+# Configuración: credenciales, herramientas y entorno
 
 ## Setup inicial
 
@@ -21,6 +21,7 @@ Dos juegos en el perfil de shell:
 | `VERACODE_SANDBOX_FRONTEND_GUID` | UUID | GUID del sandbox frontend |
 | `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend |
 | `VERACODE_ARTIFACT_FRONTEND` | nombre de archivo | Zip JS generado por la extensión en `/tmp/tempStaticScanDir/` |
+| `VERACODE_ARTIFACT_BACKEND_JARS` | lista separada por espacios | JARs backend con findings (opcional — ver `env.example.sh`) |
 
 El archivo `~/.veracode/credentials` replica las credenciales HMAC con claves
 `veracode_api_key_id` / `veracode_api_key_secret` (permisos 600).
@@ -72,12 +73,15 @@ fallan con errores de SSL al conectar a los servicios de Veracode.
 Una vez obtenidos, instalar en el CA store del sistema:
 
 ```bash
-# Linux / WSL2
-sudo cp <cert-firewall>.pem /usr/local/share/ca-certificates/zurich-firewall-root.crt
-sudo cp <cert-proxy>.pem    /usr/local/share/ca-certificates/zurich-ssldecrypt-latam.crt
+# Recomendado: usar el script (deriva los nombres de destino del nombre del archivo fuente)
+./scripts/install-certs.sh <cert-firewall>.pem <cert-proxy>.pem
+
+# Manual — Linux / WSL2
+sudo cp <cert-firewall>.pem /usr/local/share/ca-certificates/<cert-firewall>.crt
+sudo cp <cert-proxy>.pem    /usr/local/share/ca-certificates/<cert-proxy>.crt
 sudo update-ca-certificates
 
-# macOS
+# Manual — macOS
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <cert-firewall>.pem
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <cert-proxy>.pem
 ```

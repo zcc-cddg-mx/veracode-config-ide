@@ -21,10 +21,15 @@ export VERACODE_APP_GUID=""
 export VERACODE_SANDBOX_FRONTEND_GUID=""
 export VERACODE_SANDBOX_BACKEND_GUID=""
 
-# ── Artefacto frontend ────────────────────────────────────────────────────────
-# Nombre del zip generado por la extensión VS Code en /tmp/tempStaticScanDir/
+# ── Artefactos ───────────────────────────────────────────────────────────────
+# Nombre del zip frontend generado por la extensión VS Code en /tmp/tempStaticScanDir/
 # El nombre lo determina la extensión a partir del nombre del workspace del proyecto.
 export VERACODE_ARTIFACT_FRONTEND=""   # ej: veracode-auto-pack-<proyecto>-js.zip
+
+# Lista de JARs backend con findings, separados por espacio.
+# Identificarlos ejecutando el Pipeline Scan y revisando el JSON resultante.
+# Si no se define, los scripts usan los valores del caso de prueba OV como fallback.
+# export VERACODE_ARTIFACT_BACKEND_JARS="mi-servicio.jar otro-modulo.jar"
 
 # ── gnome-keyring (requerido por la extensión VS Code en WSL2) ────────────────
 if [ -S "/run/user/$(id -u)/keyring/control" ]; then
