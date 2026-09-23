@@ -6,7 +6,8 @@ Documentación del proceso de análisis de seguridad estático (SAST) para los p
 
 ## Setup inicial
 
-Copiar [`env.example.zshrc`](env.example.zshrc) al `~/.zshrc` y completar los valores.
+Agregar el contenido de [`env.example.sh`](env.example.sh) al perfil de shell
+(`~/.zshrc`, `~/.bashrc`, `~/.profile` u otro según el sistema) y completar los valores.
 Solicitar credenciales y GUIDs a quien administra el acceso Veracode en el proyecto.
 
 ## Contenido

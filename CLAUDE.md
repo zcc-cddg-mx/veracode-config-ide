@@ -17,7 +17,7 @@ There is no runnable code here — all files are Markdown reference docs.
 | Veracode App GUID | `$VERACODE_APP_GUID` |
 | Frontend Sandbox GUID | `$VERACODE_SANDBOX_FRONTEND_GUID` |
 | Backend Sandbox GUID | `$VERACODE_SANDBOX_BACKEND_GUID` |
-| Veracode CLI | `$VERACODE_CLI` — binario v2.52.1, ruta en `~/.zshrc` |
+| Veracode CLI | `$VERACODE_CLI` — binario v2.52.1, ruta en el perfil de shell |
 
 ## Two scan modes — understanding the distinction is central
 
@@ -26,7 +26,7 @@ There is no runnable code here — all files are Markdown reference docs.
 
 ## Credentials
 
-Eight environment variables in `~/.zshrc`:
+Eight environment variables in the shell profile (`~/.zshrc`, `~/.bashrc`, etc. — see `env.example.sh`):
 - `VERACODE_HMAC_CLIENT_ID` / `VERACODE_HMAC_CLIENT_SECRET` — used by CLI and VS Code SAST extension
 - `VERACODE_OA_CLIENT_ID` / `VERACODE_OA_CLIENT_SECRET` — OAuth, for interactive extension login
 - `VERACODE_CLI` — absolute path to the Veracode CLI binary (v2.52.1)
@@ -69,7 +69,7 @@ Only 3 of 59 generated JARs have findings:
 
 - **SCA** (`srcclr`) is broken on WSL2 due to a libsecret 0.20+ bug — SCA output channel (`vscode-scan`) fails. SAST is unaffected.
 - Corporate SSL certs (`zurich-firewall-root.crt`, `zurich-ssldecrypt-latam.crt`) are already installed in the system CA store; do not re-run the install commands unless rebuilding the WSL2 environment.
-- `gnome-keyring-daemon` must be running for the VS Code extension; `.zshrc` starts it automatically.
+- `gnome-keyring-daemon` must be running for the VS Code extension; the shell profile starts it automatically (block included in `env.example.sh`).
 - **"Found 1 scannable module" freeze** during Pipeline Scan is normal — the extension is processing the artifact on Veracode servers. Wait.
 - **`NpmPackager build/install failed` warning** during frontend scan is expected and harmless; it causes minor scope reduction but does not affect scan quality.
 - **GradlePackager backend scan:** if the first attempt fails, the extension retries automatically. The second attempt usually succeeds because JARs already exist in the workspace.

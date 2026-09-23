@@ -2,12 +2,13 @@
 
 ## Setup inicial
 
-Copiar [`env.example.zshrc`](env.example.zshrc) al `~/.zshrc` y completar todos los valores.
+Agregar el contenido de [`env.example.sh`](env.example.sh) al perfil de shell
+(`~/.zshrc`, `~/.bashrc`, `~/.profile` u otro) y completar todos los valores.
 El archivo contiene las variables, el bloque de gnome-keyring y comentarios de referencia.
 
 ## Credenciales
 
-Dos juegos en `~/.zshrc`:
+Dos juegos en el perfil de shell:
 
 | Variable | Tipo | Uso |
 |---|---|---|
@@ -28,7 +29,7 @@ El archivo `~/.veracode/credentials` replica las credenciales HMAC con claves
 ## CLI
 
 - **Versión:** v2.52.1
-- **Ruta:** definida en `~/.zshrc` como `$VERACODE_CLI`
+- **Ruta:** definida en el perfil de shell como `$VERACODE_CLI`
 - **Auth para Pipeline Scan:**
 
 ```bash
@@ -68,9 +69,9 @@ Certs: `firewall_root.pem` (CN=firewall_root, válido hasta 2039) y
 
 ## gnome-keyring (requerido por la extensión)
 
-El `.zshrc` inicia gnome-keyring automáticamente si no está corriendo:
+El perfil de shell inicia gnome-keyring automáticamente si no está corriendo:
 
-```zsh
+```sh
 if [ -S "/run/user/$(id -u)/keyring/control" ]; then
   export GNOME_KEYRING_CONTROL="/run/user/$(id -u)/keyring"
 else

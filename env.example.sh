@@ -1,5 +1,5 @@
 # Veracode — Variables de entorno
-# Copiar al ~/.zshrc y completar con los valores del equipo.
+# Agregar al perfil de shell (~/.zshrc, ~/.bashrc, ~/.profile, u otro según el sistema).
 # Solicitar los valores a quien administra el acceso Veracode en el proyecto.
 
 # ── Credenciales HMAC (CLI + extensión SAST) ──────────────────────────────────
