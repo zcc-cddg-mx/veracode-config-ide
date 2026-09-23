@@ -1,0 +1,3 @@
+# Reportes Veracode — adjuntar en Jira, no commitear
+*.pdf
+veracode-*-results.json
