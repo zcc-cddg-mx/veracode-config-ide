@@ -1,8 +1,15 @@
 # Veracode — Flujo SAST para ov-arizona-core
-Configuracion de Veracode en VSCode - WSL
 
-Documentación del proceso de análisis de seguridad estático (SAST) para los proyectos
-`ov-arizona-frontend-ecuador` y `ov-arizona-backend-ecuador`.
+Blueprint del proceso de análisis de seguridad estático (SAST) con Veracode en VS Code / WSL,
+desarrollado como caso de prueba sobre el proyecto **Oficina Virtual** (`ov-arizona-core`).
+
+> **Casos de prueba:** los tiempos, conteos de findings, tamaños de artefactos y resultados
+> documentados aquí se obtuvieron durante pruebas iniciales sobre los proyectos
+> `ov-arizona-frontend-ecuador` y `ov-arizona-backend-ecuador`. Los valores reales
+> variarán según la versión del código, el estado del build y la carga de los servidores Veracode.
+>
+> Este repositorio sirve como referencia y punto de partida para cualquier equipo que
+> necesite integrar Veracode SAST en su flujo de desarrollo.
 
 ## Setup inicial
 
