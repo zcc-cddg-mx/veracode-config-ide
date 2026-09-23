@@ -30,6 +30,7 @@ Documentación del proceso de análisis de seguridad estático (SAST) para los p
 - [04-artefactos.md](04-artefactos.md) — Qué subir por proyecto (frontend/backend), tamaños, ubicaciones
 - [05-findings.md](05-findings.md) — Findings conocidos, clasificación y estrategia de mitigación
 - [06-optimizacion.md](06-optimizacion.md) — Scripts disponibles, opciones de automatización e integración en pipeline
+- [07-reportes.md](07-reportes.md) — Tipos de reporte PDF, descarga manual y via script, estados de Policy
 
 ## Aplicación registrada en Veracode
 

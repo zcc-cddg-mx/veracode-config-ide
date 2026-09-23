@@ -50,6 +50,7 @@ Seven environment variables in the shell profile (`~/.zshrc`, `~/.bashrc`, etc. 
 | `scripts/verify-setup.sh` | Validate env vars and tools before first scan |
 | `scripts/pipeline-scan.sh [frontend\|backend]` | CLI scan → JSON results file |
 | `scripts/check-build-status.py [frontend\|backend]` | Query Policy Scan status via API |
+| `scripts/download-report.py [frontend\|backend]` | Download Policy Scan PDF report |
 | `scripts/prepare-artifacts.sh` | Verify artifacts exist before sandbox upload |
 
 ## Pipeline Scan CLI invocation

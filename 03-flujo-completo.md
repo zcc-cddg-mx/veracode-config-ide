@@ -61,5 +61,12 @@ Ver [`scripts/check-build-status.py`](scripts/check-build-status.py).
 
 ## Paso 5 — Descargar reporte y adjuntar en Jira
 
-Una vez completado, descargar el PDF desde la plataforma y adjuntarlo al ticket Jira
-correspondiente al CAB técnico.
+```bash
+python3 scripts/download-report.py frontend   # → veracode-report-frontend.pdf
+python3 scripts/download-report.py backend    # → veracode-report-backend.pdf
+```
+
+O descargar manualmente desde la plataforma: sandbox → build → pestaña **Reports** → **Download PDF**.
+
+Adjuntar el PDF al ticket Jira del CAB técnico. Ver [07-reportes.md](07-reportes.md) para
+referencia sobre tipos de reporte y estados de Policy.
