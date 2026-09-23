@@ -12,9 +12,11 @@ Veracode en su flujo de desarrollo.
 >
 > **El flujo manual documentado aquí funciona, pero no es sostenible a largo plazo.**
 > Se recomienda encarecidamente avanzar hacia la optimización descrita en
-> [06-optimizacion.md](06-optimizacion.md): un fix de código, mitigaciones en plataforma
-> e integración en el pipeline de release eliminan la intervención manual y garantizan
-> reportes limpios antes de cada CAB.
+> [06-optimizacion.md](06-optimizacion.md): mitigaciones en plataforma e integración
+> en el pipeline de release eliminan la intervención manual y garantizan reportes
+> limpios antes de cada CAB.
+
+> **¿Entorno ya configurado?** → Ir directo a [03-flujo-completo.md](03-flujo-completo.md)
 
 ## Setup inicial
 
@@ -44,6 +46,18 @@ Veracode en su flujo de desarrollo.
 - [06-optimizacion.md](06-optimizacion.md) — Scripts disponibles, opciones de automatización e integración en pipeline
 - [07-reportes.md](07-reportes.md) — Tipos de reporte PDF, descarga manual y via script, estados de Policy
 
+## Scripts disponibles
+
+| Script | Cuándo usarlo |
+|---|---|
+| `./scripts/install-deps.sh` | Primera vez — instala extensión VS Code, Python libs, gnome-keyring |
+| `./scripts/install-certs.sh <fw.pem> <proxy.pem>` | Primera vez — instala certificados SSL corporativos |
+| `./scripts/verify-setup.sh` | Antes del primer scan — valida variables y herramientas |
+| `./scripts/prepare-artifacts.sh` | Antes de subir al sandbox — confirma que los artefactos existen |
+| `./scripts/pipeline-scan.sh [frontend\|backend]` | Scan local rápido → genera JSON de findings |
+| `./scripts/check-build-status.py [frontend\|backend]` | Monitorear el Policy Scan via API |
+| `./scripts/download-report.py [frontend\|backend]` | Descargar el reporte PDF oficial |
+
 ## Estado del caso de prueba (Oficina Virtual — 2026-09-22)
 
 > Resultados obtenidos sobre `ov-arizona-core`. Tu proyecto tendrá sus propios valores.
@@ -51,7 +65,7 @@ Veracode en su flujo de desarrollo.
 | Proyecto | Score | PCI | Acción pendiente |
 |---|---|---|---|
 | Backend (`ov-arizona-backend-ecuador`) | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
-| Frontend (`ov-arizona-frontend-ecuador`) | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
+| Frontend (`ov-arizona-frontend-ecuador`) | — | ✅ Completado | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
 
 ## Aplicación registrada en Veracode (caso de prueba)
 
