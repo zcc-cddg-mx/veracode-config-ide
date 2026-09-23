@@ -41,7 +41,7 @@ response = requests.get(
     "https://analysiscenter.veracode.com/api/5.0/getbuildinfo.do",
     params={"app_id": app_guid, "sandbox_id": sandbox_guid},
     auth=auth,
-    verify="/etc/ssl/certs/ca-certificates.crt",
+    verify=os.environ.get("SSL_CERT_FILE", True),
 )
 
 print(response.text)

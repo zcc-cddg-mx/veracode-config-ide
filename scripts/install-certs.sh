@@ -26,11 +26,14 @@ done
 OS="$(uname -s)"
 
 if [ "$OS" = "Linux" ]; then
-  echo "→ Instalando $CERT_FIREWALL → zurich-firewall-root.crt"
-  sudo cp "$CERT_FIREWALL" /usr/local/share/ca-certificates/zurich-firewall-root.crt
+  DEST_FIREWALL="$(basename "$CERT_FIREWALL" .pem).crt"
+  DEST_PROXY="$(basename "$CERT_PROXY" .pem).crt"
 
-  echo "→ Instalando $CERT_PROXY → zurich-ssldecrypt-latam.crt"
-  sudo cp "$CERT_PROXY" /usr/local/share/ca-certificates/zurich-ssldecrypt-latam.crt
+  echo "→ Instalando $CERT_FIREWALL → $DEST_FIREWALL"
+  sudo cp "$CERT_FIREWALL" "/usr/local/share/ca-certificates/$DEST_FIREWALL"
+
+  echo "→ Instalando $CERT_PROXY → $DEST_PROXY"
+  sudo cp "$CERT_PROXY" "/usr/local/share/ca-certificates/$DEST_PROXY"
 
   echo "→ Actualizando CA store..."
   sudo update-ca-certificates

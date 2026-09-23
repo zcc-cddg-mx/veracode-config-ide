@@ -19,7 +19,7 @@ SANDBOX_MAP = {
     "backend":  "VERACODE_SANDBOX_BACKEND_GUID",
 }
 
-CA_CERT = "/etc/ssl/certs/ca-certificates.crt"
+CA_CERT = os.environ.get("SSL_CERT_FILE", True)
 
 def get_env(var):
     val = os.environ.get(var)

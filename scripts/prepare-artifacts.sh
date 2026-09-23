@@ -20,9 +20,14 @@ else
   ERRORS=$((ERRORS + 1))
 fi
 
+# CASO DE PRUEBA: lista de JARs de ov-arizona-backend-ecuador.
+# Reemplazar con los artefactos con findings de tu propio proyecto.
+# Puedes sobreescribir via: export VERACODE_ARTIFACT_BACKEND_JARS="jar1.jar jar2.jar"
+BACKEND_JARS="${VERACODE_ARTIFACT_BACKEND_JARS:-app-head.jar feign-clients-head.jar rest-tests-head.jar}"
+
 echo ""
-echo "Backend (JARs mínimos con findings):"
-for jar in app-head.jar feign-clients-head.jar rest-tests-head.jar; do
+echo "Backend (JARs con findings — caso de prueba, ajustar según proyecto):"
+for jar in $BACKEND_JARS; do
   if ls -lh "$SCAN_DIR/$jar" 2>/dev/null; then
     :
   else

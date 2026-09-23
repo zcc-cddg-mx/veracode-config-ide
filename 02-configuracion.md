@@ -25,6 +25,16 @@ Dos juegos en el perfil de shell:
 El archivo `~/.veracode/credentials` replica las credenciales HMAC con claves
 `veracode_api_key_id` / `veracode_api_key_secret` (permisos 600).
 
+**Dónde obtener cada valor:**
+
+| Variable | Dónde encontrarla |
+|---|---|
+| HMAC y OAuth | analysiscenter.veracode.com → menú de usuario (arriba derecha) → **API Credentials** |
+| `VERACODE_APP_GUID` | analysiscenter.veracode.com → Applications → tu app → **Settings** |
+| `VERACODE_SANDBOX_*_GUID` | analysiscenter.veracode.com → Applications → tu app → sandbox → **Settings** |
+| `VERACODE_CLI` | Descargar el binario desde analysiscenter.veracode.com → **Downloads** |
+| `VERACODE_ARTIFACT_FRONTEND` | Nombre del zip generado en `/tmp/tempStaticScanDir/` tras el primer Pipeline Scan |
+
 ## CLI
 
 - **Versión:** v2.52.1

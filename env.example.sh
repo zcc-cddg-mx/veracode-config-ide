@@ -3,6 +3,7 @@
 # Solicitar los valores a quien administra el acceso Veracode en el proyecto.
 
 # ── Credenciales HMAC (CLI + extensión SAST) ──────────────────────────────────
+# Generar en: analysiscenter.veracode.com → menú de usuario → API Credentials
 export VERACODE_HMAC_CLIENT_ID=""
 export VERACODE_HMAC_CLIENT_SECRET=""
 
@@ -14,6 +15,8 @@ export VERACODE_OA_CLIENT_SECRET=""    # formato: base64url
 export VERACODE_CLI=""                 # ej: /home/<usuario>/tools/veracode
 
 # ── Identificadores de la aplicación en la plataforma ────────────────────────
+# Obtener en: analysiscenter.veracode.com → Applications → tu app → Settings (App GUID)
+#             y en cada Sandbox → Settings (Sandbox GUID)
 export VERACODE_APP_GUID=""
 export VERACODE_SANDBOX_FRONTEND_GUID=""
 export VERACODE_SANDBOX_BACKEND_GUID=""

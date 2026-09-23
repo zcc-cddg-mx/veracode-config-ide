@@ -8,8 +8,6 @@ Ejecutar el script de instalación automática o seguir los pasos manuales a con
 
 ---
 
----
-
 ## 1. VS Code
 
 Descargar e instalar desde [https://code.visualstudio.com](https://code.visualstudio.com).

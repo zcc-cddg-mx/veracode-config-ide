@@ -36,11 +36,14 @@ case "$TARGET" in
     ;;
 
   backend)
-    echo "→ Pipeline Scan: backend (app-head.jar feign-clients-head.jar rest-tests-head.jar)"
+    # CASO DE PRUEBA: estos JARs corresponden a ov-arizona-backend-ecuador.
+    # Reemplazar con los artefactos con findings de tu propio proyecto
+    # (identificarlos ejecutando el Pipeline Scan local y revisando el JSON resultante).
+    BACKEND_JARS="${VERACODE_ARTIFACT_BACKEND_JARS:-app-head.jar feign-clients-head.jar rest-tests-head.jar}"
+    echo "→ Pipeline Scan: backend ($BACKEND_JARS)"
+    # shellcheck disable=SC2086
     "$VERACODE_CLI" static scan \
-      "$SCAN_DIR/app-head.jar" \
-      "$SCAN_DIR/feign-clients-head.jar" \
-      "$SCAN_DIR/rest-tests-head.jar" \
+      $(for j in $BACKEND_JARS; do echo "$SCAN_DIR/$j"; done) \
       --results-file veracode-backend-results.json
     echo "Resultados: veracode-backend-results.json"
     ;;
