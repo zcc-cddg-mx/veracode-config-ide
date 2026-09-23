@@ -1,12 +1,14 @@
-# Veracode — Flujo SAST para ov-arizona-core
+# Veracode — Blueprint de flujo SAST
 
-Blueprint del proceso de análisis de seguridad estático (SAST) con Veracode en VS Code / WSL,
-desarrollado como **caso de prueba** sobre el proyecto **Oficina Virtual** (`ov-arizona-core`).
+Blueprint reutilizable del proceso de análisis de seguridad estático (SAST) con Veracode
+en VS Code / WSL. Sirve como punto de partida para cualquier equipo que necesite integrar
+Veracode en su flujo de desarrollo.
 
 > **Importante — naturaleza del blueprint:**
-> Este repositorio documenta un ciclo de prueba completo: configuración, escaneo, findings
-> y reporte. Los tiempos, conteos y resultados son de referencia y variarán en cada equipo
-> según versión de código, build y carga de servidores.
+> Este repositorio documenta un ciclo completo: configuración, escaneo, findings y reporte.
+> Los ejemplos concretos (tiempos, findings, artefactos, GUIDs) provienen de casos de prueba
+> sobre el proyecto **Oficina Virtual** (`ov-arizona-core`) y son solo referencia —
+> los valores reales variarán según proyecto, versión de código y carga de servidores.
 >
 > **El flujo manual documentado aquí funciona, pero no es sostenible a largo plazo.**
 > Se recomienda encarecidamente avanzar hacia la optimización descrita en
@@ -42,18 +44,22 @@ desarrollado como **caso de prueba** sobre el proyecto **Oficina Virtual** (`ov-
 - [06-optimizacion.md](06-optimizacion.md) — Scripts disponibles, opciones de automatización e integración en pipeline
 - [07-reportes.md](07-reportes.md) — Tipos de reporte PDF, descarga manual y via script, estados de Policy
 
-## Estado actual (casos de prueba 2026-09-22)
+## Estado del caso de prueba (Oficina Virtual — 2026-09-22)
+
+> Resultados obtenidos sobre `ov-arizona-core`. Tu proyecto tendrá sus propios valores.
 
 | Proyecto | Score | PCI | Acción pendiente |
 |---|---|---|---|
-| Backend | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
-| Frontend | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
+| Backend (`ov-arizona-backend-ecuador`) | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
+| Frontend (`ov-arizona-frontend-ecuador`) | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
 
-## Aplicación registrada en Veracode
+## Aplicación registrada en Veracode (caso de prueba)
+
+> Reemplaza estos valores con los GUIDs de tu propia aplicación. Ver `env.example.sh`.
 
 | Campo | Valor |
 |---|---|
-| App | `LATAM_Ecuador_ov-arizona-core` |
+| App | `LATAM_Ecuador_ov-arizona-core` *(caso de prueba)* |
 | App GUID | `$VERACODE_APP_GUID` |
 | Sandbox Frontend | `ov-arizona-frontend-ecuador` (GUID: `$VERACODE_SANDBOX_FRONTEND_GUID`) |
 | Sandbox Backend | `ov-arizona-backend-ecuador` (GUID: `$VERACODE_SANDBOX_BACKEND_GUID`) |
