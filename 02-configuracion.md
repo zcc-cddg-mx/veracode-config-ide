@@ -63,12 +63,13 @@ Una vez obtenidos, instalar en el CA store del sistema:
 
 ```bash
 # Linux / WSL2
-sudo cp <cert-firewall>.pem /usr/local/share/ca-certificates/<nombre>.crt
-sudo cp <cert-proxy>.pem    /usr/local/share/ca-certificates/<nombre>.crt
+sudo cp <cert-firewall>.pem /usr/local/share/ca-certificates/zurich-firewall-root.crt
+sudo cp <cert-proxy>.pem    /usr/local/share/ca-certificates/zurich-ssldecrypt-latam.crt
 sudo update-ca-certificates
 
 # macOS
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <cert>.pem
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <cert-firewall>.pem
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <cert-proxy>.pem
 ```
 
 No repetir salvo reinstalación del sistema — los certs persisten en el CA store.
