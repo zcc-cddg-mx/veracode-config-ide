@@ -77,7 +77,7 @@ Reference values from test runs — counts may vary per build:
 
 Reference values from test runs (2026-09-22) — may change with each code version:
 - **Frontend — 30 Medium findings:** 26 are CWE-798 false positives (reCAPTCHA/Maps/GTM public keys in `environment.*.ts`); 3 are CWE-80 XSS via `Node.appendChild`; 1 is CWE-312 in `fnol/app.module.ts`.
-- **Backend — 6 Medium findings:** All 4 in `app-head.jar` are in NCDC framework dependencies (not editable project code). Recommended mitigation: "Library: Vendor Notified" or "Not Exploitable".
+- **Backend — 5 Medium findings (score 98/100, PCI Did Not Pass):** 4 in NCDC framework dependencies (`app-head.jar`); 1 in project code — CWE-331 `EncryptionUtils.java` (`feign-clients-head.jar`, use of `Random` instead of `SecureRandom`); 1 in test module (`rest-tests-head.jar`, not production).
 
 ## WSL2 limitations and known behaviors
 

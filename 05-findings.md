@@ -40,35 +40,35 @@ por Angular's DomSanitizer o es contenido estático, marcar como "Not Exploitabl
 
 ## Backend — ov-arizona-backend-ecuador (2026-09-22)
 
-**6 findings Medium** (Pipeline Scan, pendiente confirmar con Policy Scan oficial)
+**Score: 98/100 — PCI Did Not Pass** · 5 findings Medium · 0 High / Very High
 
-### app-head.jar — 4 findings (en dependencias NCDC)
+| CWE | Tipo | Archivo | Módulo | Código propio |
+|---|---|---|---|---|
+| CWE-117 | Log Injection (CRLF) | `ArizonaLoggerImpl.java` | `app-head.jar` (NCDC lib) | No |
+| CWE-80 | Basic XSS | `AmsZuulConfig.java` | `app-head.jar` (NCDC lib) | No |
+| CWE-331 | Insufficient Entropy | `ZipkinConfiguration.java` | `app-head.jar` (NCDC lib) | No |
+| CWE-331 | Insufficient Entropy | `EncryptionUtils.java` | `feign-clients-head.jar` | **Sí** |
+| CWE-331 | Insufficient Entropy | `Motor2ndStep.java` | `rest-tests-head.jar` (test) | No (test) |
 
-Los 4 findings están en archivos de librerías internas NCDC que no forman parte
-del código fuente del repositorio:
+### Findings en librerías NCDC (4 de 5) — no son código del proyecto
 
-| Archivo fuente | Paquete |
-|---|---|
-| `AmsZuulConfig.java` | `eu.ncdc.arizona.zuul` |
-| `SpringTxBridgeManager.java` | `eu.ncdc.restat.tx` |
-| `InboundPropagateFilter.java` | `eu.ncdc.restat.integration.feign` |
-| `ZipkinConfiguration.java` | `eu.ncdc.arizona.core.configuration` |
-| `ArizonaLoggerImpl.java` | `eu.ncdc.arizona.core.common.utils` |
-| `LoggedAspect.java` | `eu.ncdc.arizona.core.security` |
-| `CachedBodyHttpServletRequest.java` | `eu.ncdc.arizona.zuul` |
+`ArizonaLoggerImpl.java`, `AmsZuulConfig.java` y `ZipkinConfiguration.java` pertenecen
+al framework interno `eu.ncdc.*`. El scanner los detecta en el bytecode compilado
+pero no puede mapearlos a código fuente local ("Cannot locate source file").
 
-**Análisis:** Son dependencias del framework NCDC, no código editable del proyecto.
-El scanner detecta los findings en el bytecode compilado pero no puede mapearlos
-a código fuente local ("Cannot locate source file").
+**Mitigación recomendada:** "Library: Vendor Notified" o "Not Exploitable".
 
-**Mitigación recomendada:** "Library: Vendor Notified" o "Not Exploitable" —
-los findings están en código de terceros (NCDC) fuera del control del equipo.
+### CWE-331 — `EncryptionUtils.java` en `feign-clients-head.jar` — código propio
 
-### feign-clients-head.jar — 1 finding
+Único finding en código del proyecto. Uso de `Random` en lugar de `SecureRandom`
+para generación de valores que requieren entropía criptográfica.
 
-Pendiente detalle del Policy Scan oficial.
+**Mitigación recomendada:** reemplazar `java.util.Random` por `java.security.SecureRandom`
+en `EncryptionUtils.java`. Si el contexto no requiere seguridad criptográfica,
+documentar y marcar como "Not Exploitable" con justificación.
 
-### rest-tests-head.jar — 1 finding
+### CWE-331 — `Motor2ndStep.java` en `rest-tests-head.jar` — módulo de pruebas
 
-Está en el módulo de pruebas (`ams-tests`). Considerar si aplica mitigación
-"Not Exploitable" para código de test que no llega a producción.
+Está en el módulo de tests (`ams-tests`). El código de test no llega a producción.
+
+**Mitigación recomendada:** "Not Exploitable" — aplica solo a entorno de pruebas.
