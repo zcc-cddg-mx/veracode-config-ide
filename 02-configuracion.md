@@ -53,19 +53,26 @@ bug de srcclr con libsecret 0.20+. Sin fix desde el lado del usuario.
 
 **Impacto:** Solo afecta SCA (análisis de dependencias). El SAST funciona normalmente.
 
-## Certificados SSL corporativos (Zurich LATAM)
+## Certificados SSL corporativos
 
-El proxy corporativo intercepta SSL en VS Code. Los certs están instalados en el CA store:
+El proxy corporativo intercepta SSL. Sin los certificados instalados, VS Code y el CLI
+fallan con errores de SSL al conectar a los servicios de Veracode.
+
+**Solicitar los archivos `.pem` / `.crt` al equipo de infraestructura o seguridad.**
+
+Una vez obtenidos, instalar en el CA store del sistema:
 
 ```bash
-# Ya ejecutado — no repetir salvo reinstalación del sistema
-sudo cp ~/dev/claude/certs/firewall_root.pem /usr/local/share/ca-certificates/zurich-firewall-root.crt
-sudo cp ~/dev/claude/certs/zurich-ssl-ca.pem /usr/local/share/ca-certificates/zurich-ssldecrypt-latam.crt
+# Linux / WSL2
+sudo cp <cert-firewall>.pem /usr/local/share/ca-certificates/<nombre>.crt
+sudo cp <cert-proxy>.pem    /usr/local/share/ca-certificates/<nombre>.crt
 sudo update-ca-certificates
+
+# macOS
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <cert>.pem
 ```
 
-Certs: `firewall_root.pem` (CN=firewall_root, válido hasta 2039) y
-`zurich-ssl-ca.pem` (CN=ssldecrypt.latam.zurich.com, válido hasta 2031).
+No repetir salvo reinstalación del sistema — los certs persisten en el CA store.
 
 ## gnome-keyring (requerido por la extensión)
 

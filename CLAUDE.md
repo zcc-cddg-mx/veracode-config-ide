@@ -68,7 +68,7 @@ Only 3 of 59 generated JARs have findings:
 ## WSL2 limitations and known behaviors
 
 - **SCA** (`srcclr`) is broken on WSL2 due to a libsecret 0.20+ bug — SCA output channel (`vscode-scan`) fails. SAST is unaffected.
-- Corporate SSL certs (`zurich-firewall-root.crt`, `zurich-ssldecrypt-latam.crt`) are already installed in the system CA store; do not re-run the install commands unless rebuilding the WSL2 environment.
+- Corporate SSL certs must be installed in the system CA store; request the `.pem` files from the infrastructure/security team. See `02-configuracion.md` for install steps. Do not re-run unless rebuilding the environment.
 - `gnome-keyring-daemon` must be running for the VS Code extension; the shell profile starts it automatically (block included in `env.example.sh`).
 - **"Found 1 scannable module" freeze** during Pipeline Scan is normal — the extension is processing the artifact on Veracode servers. Wait.
 - **`NpmPackager build/install failed` warning** during frontend scan is expected and harmless; it causes minor scope reduction but does not affect scan quality.
