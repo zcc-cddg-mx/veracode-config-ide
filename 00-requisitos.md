@@ -1,6 +1,12 @@
 # Requisitos: instalación de herramientas
 
-Instalar lo siguiente antes de seguir cualquier otro paso de esta documentación.
+Ejecutar el script de instalación automática o seguir los pasos manuales a continuación.
+
+```bash
+./scripts/install-deps.sh
+```
+
+---
 
 ---
 
@@ -64,5 +70,18 @@ No es necesario en macOS (usa el Keychain del sistema).
 El proxy corporativo intercepta SSL. Sin los certificados, el CLI y la extensión fallan
 al conectar con los servicios Veracode.
 
-**Solicitar los archivos `.pem` al equipo de infraestructura/seguridad.**
-Ver instrucciones de instalación en [02-configuracion.md](02-configuracion.md).
+**Solicitar los archivos `.pem` al equipo de infraestructura/seguridad**, luego:
+
+```bash
+./scripts/install-certs.sh <cert-firewall>.pem <cert-proxy>.pem
+```
+
+---
+
+## Verificar el entorno
+
+Una vez completados todos los pasos anteriores y configurado el perfil de shell:
+
+```bash
+./scripts/verify-setup.sh
+```

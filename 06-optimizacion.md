@@ -79,25 +79,14 @@ el equipo no ejecuta el Pipeline Scan durante el sprint. Resultado: bloqueo de �
 
 ## Opción de corto plazo — Script de preparación de artefactos
 
-Mientras no se integra en el pipeline, un script reduce errores manuales
-(subir el artefacto equivocado, olvidar un JAR):
+Mientras no se integra en el pipeline, ejecutar antes de subir artefactos al sandbox:
 
 ```bash
-#!/bin/bash
-# prepare-veracode-artifacts.sh
-
-SCAN_DIR="/tmp/tempStaticScanDir"
-
-echo "=== Frontend ==="
-ls -lh $SCAN_DIR/$VERACODE_ARTIFACT_FRONTEND 2>/dev/null \
-  || echo "FALTA: ejecutar scan en VS Code del frontend"
-
-echo "=== Backend (mínimo — solo JARs con findings) ==="
-for jar in app-head.jar feign-clients-head.jar rest-tests-head.jar; do
-  ls -lh $SCAN_DIR/$jar 2>/dev/null \
-    || echo "FALTA: $jar — ejecutar scan en VS Code del backend"
-done
+./scripts/prepare-artifacts.sh
 ```
+
+El script verifica que todos los artefactos necesarios existen en `/tmp/tempStaticScanDir/`
+y reporta cuáles faltan. Ver [`scripts/prepare-artifacts.sh`](scripts/prepare-artifacts.sh).
 
 ## Opción de mediano plazo — Mitigaciones permanentes en la plataforma
 
