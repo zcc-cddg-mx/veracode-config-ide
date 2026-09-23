@@ -7,7 +7,7 @@ durante el Pipeline Scan (Paso 1 del flujo). No es necesario compilar manualment
 
 | Artefacto | Tamaño | Findings | Subir? |
 |---|---|---|---|
-| `veracode-auto-pack-ov-arizona-frontend-ecuador-js.zip` | ~4.5MB | 30 | ✅ Sí |
+| `$VERACODE_ARTIFACT_FRONTEND` | ~4.5MB | 30 | ✅ Sí |
 
 **Nota:** La extensión empaqueta los fuentes JS directamente (no ejecuta `ng build`).
 El warning `NpmPackager build/install failed` es esperado — reducción menor de scope,

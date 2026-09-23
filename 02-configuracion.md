@@ -1,5 +1,10 @@
 # Configuración: WSL2, credenciales y herramientas
 
+## Setup inicial
+
+Copiar [`env.example.zshrc`](env.example.zshrc) al `~/.zshrc` y completar todos los valores.
+El archivo contiene las variables, el bloque de gnome-keyring y comentarios de referencia.
+
 ## Credenciales
 
 Dos juegos en `~/.zshrc`:
@@ -15,6 +20,7 @@ Dos juegos en `~/.zshrc`:
 | `VERACODE_SANDBOX_FRONTEND_GUID` | UUID | GUID del sandbox frontend |
 | `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend |
 | `VERACODE_SSO_URL` | URL | Endpoint SSO Okta EMEA para login |
+| `VERACODE_ARTIFACT_FRONTEND` | nombre de archivo | Zip JS generado por la extensión en `/tmp/tempStaticScanDir/` |
 
 El archivo `~/.veracode/credentials` replica las credenciales HMAC con claves
 `veracode_api_key_id` / `veracode_api_key_secret` (permisos 600).

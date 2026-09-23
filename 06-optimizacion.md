@@ -89,7 +89,7 @@ Mientras no se integra en el pipeline, un script reduce errores manuales
 SCAN_DIR="/tmp/tempStaticScanDir"
 
 echo "=== Frontend ==="
-ls -lh $SCAN_DIR/veracode-auto-pack-ov-arizona-frontend-ecuador-js.zip 2>/dev/null \
+ls -lh $SCAN_DIR/$VERACODE_ARTIFACT_FRONTEND 2>/dev/null \
   || echo "FALTA: ejecutar scan en VS Code del frontend"
 
 echo "=== Backend (mínimo — solo JARs con findings) ==="

@@ -4,6 +4,11 @@ Configuracion de Veracode en VSCode - WSL
 Documentación del proceso de análisis de seguridad estático (SAST) para los proyectos
 `ov-arizona-frontend-ecuador` y `ov-arizona-backend-ecuador`.
 
+## Setup inicial
+
+Copiar [`env.example.zshrc`](env.example.zshrc) al `~/.zshrc` y completar los valores.
+Solicitar credenciales y GUIDs a quien administra el acceso Veracode en el proyecto.
+
 ## Contenido
 
 - [01-conceptos.md](01-conceptos.md) — Pipeline Scan vs Policy Scan, cuándo usar cada uno

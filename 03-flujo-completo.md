@@ -28,7 +28,7 @@ Si se necesita el JSON con los findings para análisis o reporte HTML:
 VERACODE_API_KEY_ID=$VERACODE_HMAC_CLIENT_ID \
 VERACODE_API_KEY_SECRET=$VERACODE_HMAC_CLIENT_SECRET \
 $VERACODE_CLI static scan \
-  /tmp/tempStaticScanDir/veracode-auto-pack-ov-arizona-frontend-ecuador-js.zip \
+  /tmp/tempStaticScanDir/$VERACODE_ARTIFACT_FRONTEND \
   --results-file veracode-frontend-results.json
 
 # Backend (mínimo para cubrir todos los findings)
