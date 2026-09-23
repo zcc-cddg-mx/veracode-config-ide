@@ -28,25 +28,13 @@ el artefacto en los servidores. Esperar.
 Si se necesita el JSON con los findings para análisis o reporte HTML:
 
 ```bash
-# Frontend
-VERACODE_API_KEY_ID=$VERACODE_HMAC_CLIENT_ID \
-VERACODE_API_KEY_SECRET=$VERACODE_HMAC_CLIENT_SECRET \
-$VERACODE_CLI static scan \
-  /tmp/tempStaticScanDir/$VERACODE_ARTIFACT_FRONTEND \
-  --results-file veracode-frontend-results.json
-
-# Backend (mínimo para cubrir todos los findings)
-VERACODE_API_KEY_ID=$VERACODE_HMAC_CLIENT_ID \
-VERACODE_API_KEY_SECRET=$VERACODE_HMAC_CLIENT_SECRET \
-$VERACODE_CLI static scan \
-  /tmp/tempStaticScanDir/app-head.jar \
-  /tmp/tempStaticScanDir/feign-clients-head.jar \
-  /tmp/tempStaticScanDir/rest-tests-head.jar \
-  --results-file veracode-backend-results.json
+./scripts/pipeline-scan.sh frontend   # genera veracode-frontend-results.json
+./scripts/pipeline-scan.sh backend    # genera veracode-backend-results.json
 ```
 
 Los artefactos en `/tmp/tempStaticScanDir/` los genera la extensión VS Code automáticamente
 durante el paso 1. Están disponibles mientras no se limpie `/tmp/`.
+Ver [`scripts/pipeline-scan.sh`](scripts/pipeline-scan.sh).
 
 ## Paso 3 — Subir artefactos al sandbox (plataforma Veracode)
 
@@ -65,21 +53,11 @@ durante el paso 1. Están disponibles mientras no se limpie `/tmp/`.
 El estado se puede monitorear en la plataforma o via API:
 
 ```bash
-# Verificar estado del build más reciente
-python3 -c "
-from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
-import os, requests
-os.environ['VERACODE_API_KEY_ID'] = os.environ['VERACODE_HMAC_CLIENT_ID']
-os.environ['VERACODE_API_KEY_SECRET'] = os.environ['VERACODE_HMAC_CLIENT_SECRET']
-auth = RequestsAuthPluginVeracodeHMAC()
-r = requests.get(
-  'https://analysiscenter.veracode.com/api/5.0/getbuildinfo.do',
-  params={'app_id': os.environ['VERACODE_APP_GUID'], 'sandbox_id': os.environ['VERACODE_SANDBOX_FRONTEND_GUID']},
-  auth=auth, verify='/etc/ssl/certs/ca-certificates.crt'
-)
-print(r.text)
-"
+python3 scripts/check-build-status.py frontend
+python3 scripts/check-build-status.py backend
 ```
+
+Ver [`scripts/check-build-status.py`](scripts/check-build-status.py).
 
 ## Paso 5 — Descargar reporte y adjuntar en Jira
 
