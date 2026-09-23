@@ -1,5 +1,8 @@
 # Findings conocidos y estrategia de mitigación
 
+> **Nota:** los findings documentados corresponden a casos de prueba iniciales (2026-09-22).
+> Los conteos y archivos afectados pueden cambiar con cada nueva versión del código.
+
 ## Frontend — ov-arizona-frontend-ecuador (2026-09-22)
 
 **30 findings Medium**
