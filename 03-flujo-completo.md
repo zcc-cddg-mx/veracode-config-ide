@@ -3,6 +3,10 @@
 El ciclo completo desde desarrollo hasta reporte oficial tarda medio día mínimo.
 Lo ideal es que los pasos 1-2 ocurran durante el sprint y no al momento del pase.
 
+> **Nota sobre tiempos:** los valores indicados en este documento corresponden a
+> casos de prueba iniciales y pueden variar según carga de los servidores Veracode,
+> tamaño real de los artefactos y condiciones de red.
+
 ## Paso 1 — Pipeline Scan local (VS Code Extension)
 
 **Cuándo:** Durante el desarrollo, antes de hacer PR.
@@ -12,7 +16,7 @@ el Pipeline Scan al guardar o manualmente desde el panel Veracode.
 
 Los findings aparecen como diagnósticos inline en el editor. Corregir antes de continuar.
 
-**Tiempo estimado:**
+**Tiempo de referencia** (casos de prueba):
 - Frontend (Angular, ~4.5MB JS): ~15 min
 - Backend (Spring Boot, ~73MB JARs): ~60-90 min
 
@@ -56,7 +60,7 @@ durante el paso 1. Están disponibles mientras no se limpie `/tmp/`.
 
 ## Paso 4 — Esperar Policy Scan
 
-**Tiempo estimado:** 2-4 horas.
+**Tiempo de referencia** (casos de prueba): 2-4 horas.
 
 El estado se puede monitorear en la plataforma o via API:
 

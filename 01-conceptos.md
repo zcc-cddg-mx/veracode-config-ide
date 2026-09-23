@@ -9,7 +9,7 @@ Veracode ofrece dos modalidades de análisis estático con propósitos distintos
 - Se ejecuta desde la extensión VS Code o el CLI
 - **No se registra** en la plataforma Veracode
 - Resultados efímeros: se muestran en el editor o en un JSON local, luego se descartan
-- Rápido para artefactos pequeños (~15 min para 4.5MB JS), más lento para JARs grandes (~60 min para 73MB)
+- Rápido para artefactos pequeños (~15 min para 4.5MB JS), más lento para JARs grandes (~60 min para 73MB) — *tiempos de referencia, casos de prueba*
 - Útil durante el desarrollo para corregir findings antes del pase
 
 ```
@@ -21,7 +21,7 @@ Dev → VS Code Extension → Pipeline Scan API → Diagnósticos inline (no per
 - Se ejecuta subiendo artefactos al sandbox en la plataforma Veracode
 - **Queda registrado**: número de build, fecha, estado de policy, historial
 - Genera reporte PDF descargable
-- Tarda 2-4 horas (procesamiento en servidores Veracode)
+- Tarda 2-4 horas (procesamiento en servidores Veracode) — *tiempo de referencia, casos de prueba*
 - Es el reporte válido para CAB técnico y auditorías
 
 ```

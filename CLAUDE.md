@@ -21,7 +21,7 @@ There is no runnable code here — all files are Markdown reference docs.
 
 ## Two scan modes — understanding the distinction is central
 
-- **Pipeline Scan** — fast (~15 min frontend, ~60-90 min backend), runs locally via VS Code extension or CLI, results are ephemeral (JSON or inline diagnostics), **not recorded on the platform**. Valid for dev feedback only.
+- **Pipeline Scan** — fast (~15 min frontend, ~60-90 min backend; reference times from test runs), runs locally via VS Code extension or CLI, results are ephemeral (JSON or inline diagnostics), **not recorded on the platform**. Valid for dev feedback only.
 - **Policy / Sandbox Scan** — runs on Veracode servers after uploading artifacts, takes 2-4 hours, produces the official PDF report. **Required for CAB and audits.**
 
 ## Credentials
