@@ -6,9 +6,20 @@ Documentación del proceso de análisis de seguridad estático (SAST) para los p
 
 ## Setup inicial
 
-Agregar el contenido de [`env.example.sh`](env.example.sh) al perfil de shell
-(`~/.zshrc`, `~/.bashrc`, `~/.profile` u otro según el sistema) y completar los valores.
-Solicitar credenciales y GUIDs a quien administra el acceso Veracode en el proyecto.
+```bash
+# 1. Instalar dependencias del sistema
+./scripts/install-deps.sh
+
+# 2. Instalar certificados SSL corporativos (solicitar .pem al equipo de infraestructura)
+./scripts/install-certs.sh <cert-firewall>.pem <cert-proxy>.pem
+
+# 3. Configurar variables de entorno
+#    Copiar env.example.sh al perfil de shell (~/.zshrc, ~/.bashrc, ~/.profile u otro)
+#    y completar los valores. Solicitar credenciales y GUIDs al equipo.
+
+# 4. Verificar que el entorno está listo
+./scripts/verify-setup.sh
+```
 
 ## Contenido
 
@@ -18,7 +29,7 @@ Solicitar credenciales y GUIDs a quien administra el acceso Veracode en el proye
 - [03-flujo-completo.md](03-flujo-completo.md) — Proceso paso a paso para un ciclo CAB/producción
 - [04-artefactos.md](04-artefactos.md) — Qué subir por proyecto (frontend/backend), tamaños, ubicaciones
 - [05-findings.md](05-findings.md) — Findings conocidos, clasificación y estrategia de mitigación
-- [06-optimizacion.md](06-optimizacion.md) — Ideas para reducir tiempos y automatizar el flujo
+- [06-optimizacion.md](06-optimizacion.md) — Scripts disponibles, opciones de automatización e integración en pipeline
 
 ## Aplicación registrada en Veracode
 
