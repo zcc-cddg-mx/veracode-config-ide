@@ -62,10 +62,10 @@ Veracode en su flujo de desarrollo.
 
 > Resultados obtenidos sobre `ov-arizona-core`. Tu proyecto tendrá sus propios valores.
 
-| Proyecto | Score | PCI | Acción pendiente |
-|---|---|---|---|
-| Backend (`ov-arizona-backend-ecuador`) | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
-| Frontend (`ov-arizona-frontend-ecuador`) | — | ✅ Completado | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
+| Proyecto | Scan realizado | Score | PCI | Acción pendiente |
+|---|---|---|---|---|
+| Backend (`ov-arizona-backend-ecuador`) | Policy Scan | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
+| Frontend (`ov-arizona-frontend-ecuador`) | Pipeline Scan | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
 
 ## Aplicación registrada en Veracode (caso de prueba)
 
