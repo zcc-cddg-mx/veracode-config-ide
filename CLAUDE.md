@@ -19,7 +19,7 @@ Markdown reference docs (in Spanish) plus a `scripts/` directory with shell/Pyth
 | Veracode App GUID | `$VERACODE_APP_GUID` |
 | Frontend Sandbox GUID | `$VERACODE_SANDBOX_FRONTEND_GUID` |
 | Backend Sandbox GUID | `$VERACODE_SANDBOX_BACKEND_GUID` |
-| Veracode CLI | `$VERACODE_CLI` — binario v2.52.1, ruta en el perfil de shell |
+| Veracode CLI | `$VERACODE_CLI` — binario v2.52.1, ubicado en `/home/idavid/tools/veracode` |
 
 ## Two scan modes — understanding the distinction is central
 
