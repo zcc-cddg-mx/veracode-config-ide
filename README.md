@@ -1,15 +1,18 @@
 # Veracode — Flujo SAST para ov-arizona-core
 
 Blueprint del proceso de análisis de seguridad estático (SAST) con Veracode en VS Code / WSL,
-desarrollado como caso de prueba sobre el proyecto **Oficina Virtual** (`ov-arizona-core`).
+desarrollado como **caso de prueba** sobre el proyecto **Oficina Virtual** (`ov-arizona-core`).
 
-> **Casos de prueba:** los tiempos, conteos de findings, tamaños de artefactos y resultados
-> documentados aquí se obtuvieron durante pruebas iniciales sobre los proyectos
-> `ov-arizona-frontend-ecuador` y `ov-arizona-backend-ecuador`. Los valores reales
-> variarán según la versión del código, el estado del build y la carga de los servidores Veracode.
+> **Importante — naturaleza del blueprint:**
+> Este repositorio documenta un ciclo de prueba completo: configuración, escaneo, findings
+> y reporte. Los tiempos, conteos y resultados son de referencia y variarán en cada equipo
+> según versión de código, build y carga de servidores.
 >
-> Este repositorio sirve como referencia y punto de partida para cualquier equipo que
-> necesite integrar Veracode SAST en su flujo de desarrollo.
+> **El flujo manual documentado aquí funciona, pero no es sostenible a largo plazo.**
+> Se recomienda encarecidamente avanzar hacia la optimización descrita en
+> [06-optimizacion.md](06-optimizacion.md): un fix de código, mitigaciones en plataforma
+> e integración en el pipeline de release eliminan la intervención manual y garantizan
+> reportes limpios antes de cada CAB.
 
 ## Setup inicial
 

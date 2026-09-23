@@ -4,11 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository purpose
 
-Documentation (in Spanish) of the Veracode SAST process for two projects inside `LATAM_Ecuador_ov-arizona-core`:
+**Proof-of-concept / blueprint** — demonstrates a complete Veracode SAST cycle (Pipeline Scan → Policy Scan → PDF report) based on test runs of two projects inside `LATAM_Ecuador_ov-arizona-core`:
 - **Frontend:** `ov-arizona-frontend-ecuador` (Angular, ~4.5 MB JS zip)
 - **Backend:** `ov-arizona-backend-ecuador` (Spring Boot, JARs totaling ~73 MB)
 
-Markdown reference docs plus a `scripts/` directory with shell/Python scripts for onboarding and the scan workflow.
+Markdown reference docs (in Spanish) plus a `scripts/` directory with shell/Python scripts for onboarding and the scan workflow. All timings, findings counts, and artifact sizes are reference values from test runs.
+
+**Next step strongly recommended:** follow the optimization plan in `06-optimizacion.md` — one code fix (`EncryptionUtils.java`) plus platform mitigations is expected to bring the backend to PCI Pass with no manual intervention at release time.
 
 ## Key identifiers
 
