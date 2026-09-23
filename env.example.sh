@@ -18,9 +18,6 @@ export VERACODE_APP_GUID=""
 export VERACODE_SANDBOX_FRONTEND_GUID=""
 export VERACODE_SANDBOX_BACKEND_GUID=""
 
-# ── SSO ───────────────────────────────────────────────────────────────────────
-export VERACODE_SSO_URL=""             # endpoint Okta EMEA para login en extensión
-
 # ── Artefacto frontend ────────────────────────────────────────────────────────
 # Nombre del zip generado por la extensión VS Code en /tmp/tempStaticScanDir/
 # El nombre lo determina la extensión a partir del nombre del workspace del proyecto.

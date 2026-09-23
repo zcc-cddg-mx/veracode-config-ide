@@ -20,7 +20,6 @@ Dos juegos en el perfil de shell:
 | `VERACODE_APP_GUID` | UUID | GUID de la app en la plataforma |
 | `VERACODE_SANDBOX_FRONTEND_GUID` | UUID | GUID del sandbox frontend |
 | `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend |
-| `VERACODE_SSO_URL` | URL | Endpoint SSO Okta EMEA para login |
 | `VERACODE_ARTIFACT_FRONTEND` | nombre de archivo | Zip JS generado por la extensión en `/tmp/tempStaticScanDir/` |
 
 El archivo `~/.veracode/credentials` replica las credenciales HMAC con claves
@@ -44,7 +43,7 @@ $VERACODE_CLI static scan <artefacto> \
 - **ID:** `veracode.veracode-vscode-plugin 1.16.3`
 - **Canal de output SAST:** "Language Client" (Output panel)
 - **Canal de output SCA:** "vscode-scan" (falla — bug libsecret WSL2)
-- **Login:** SSO Okta EMEA → `$VERACODE_SSO_URL`
+- **Login:** SSO Okta EMEA → `https://zurich.okta-emea.com/app/zurich_veracodenew_1/exkehngen7CzyaU9p0i7/sso/saml`
 
 ## Limitación conocida: SCA en WSL2
 

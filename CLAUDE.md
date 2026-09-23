@@ -26,12 +26,11 @@ There is no runnable code here — all files are Markdown reference docs.
 
 ## Credentials
 
-Eight environment variables in the shell profile (`~/.zshrc`, `~/.bashrc`, etc. — see `env.example.sh`):
+Seven environment variables in the shell profile (`~/.zshrc`, `~/.bashrc`, etc. — see `env.example.sh`):
 - `VERACODE_HMAC_CLIENT_ID` / `VERACODE_HMAC_CLIENT_SECRET` — used by CLI and VS Code SAST extension
 - `VERACODE_OA_CLIENT_ID` / `VERACODE_OA_CLIENT_SECRET` — OAuth, for interactive extension login
 - `VERACODE_CLI` — absolute path to the Veracode CLI binary (v2.52.1)
 - `VERACODE_APP_GUID` / `VERACODE_SANDBOX_FRONTEND_GUID` / `VERACODE_SANDBOX_BACKEND_GUID` — platform identifiers
-- `VERACODE_SSO_URL` — Okta EMEA SSO endpoint for the VS Code extension login
 
 `~/.veracode/credentials` mirrors the HMAC pair as `veracode_api_key_id` / `veracode_api_key_secret` (chmod 600).
 
@@ -40,7 +39,7 @@ Eight environment variables in the shell profile (`~/.zshrc`, `~/.bashrc`, etc. 
 - **ID:** `veracode.veracode-vscode-plugin 1.16.3`
 - **SAST output channel:** "Language Client" (Output panel) — not "Veracode"
 - **SCA output channel:** "vscode-scan" — broken on WSL2, ignore errors there
-- **SSO login:** Okta EMEA → `$VERACODE_SSO_URL`
+- **SSO login:** Okta EMEA → `https://zurich.okta-emea.com/app/zurich_veracodenew_1/exkehngen7CzyaU9p0i7/sso/saml`
 
 ## Pipeline Scan CLI invocation
 
