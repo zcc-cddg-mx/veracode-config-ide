@@ -29,7 +29,7 @@ Pipeline build
 (compila artefactos: JS zip / JARs)
         │
         ▼
-Pipeline Scan Veracode  ◄── automático, ~15-90 min
+Pipeline Scan Veracode  ◄── automático, ~15-90 min (referencia, casos de prueba)
 (credenciales HMAC como secrets del pipeline)
         │
         ├─ findings Very High / High ──► bloquea merge / notifica
@@ -60,13 +60,13 @@ Reporte oficial disponible antes del CAB
 ## Flujo actual (referencia)
 
 ```
-Dev → VS Code Extension → Pipeline Scan local (~15-90 min)
+Dev → VS Code Extension → Pipeline Scan local (~15-90 min, ref. casos de prueba)
         │
         ▼ (manual)
 Dev → Navegador Veracode → Subir artefactos al sandbox
         │
         ▼
-Policy Scan en plataforma (~2-4 horas)
+Policy Scan en plataforma (~2-4 horas, ref. casos de prueba)
         │
         ▼
 Dev → Descargar PDF → Adjuntar en Jira → CAB
@@ -77,16 +77,18 @@ el equipo no ejecuta el Pipeline Scan durante el sprint. Resultado: bloqueo de �
 
 ---
 
-## Opción de corto plazo — Script de preparación de artefactos
+## Opción de corto plazo — Scripts disponibles
 
-Mientras no se integra en el pipeline, ejecutar antes de subir artefactos al sandbox:
+Mientras no se integra en el pipeline, los siguientes scripts cubren el flujo manual:
 
-```bash
-./scripts/prepare-artifacts.sh
-```
+| Script | Cuándo usarlo |
+|---|---|
+| `./scripts/verify-setup.sh` | Antes del primer scan — confirma entorno y variables |
+| `./scripts/prepare-artifacts.sh` | Antes de subir al sandbox — verifica artefactos disponibles |
+| `./scripts/pipeline-scan.sh [frontend\|backend]` | Para obtener JSON de findings localmente |
+| `./scripts/check-build-status.py [frontend\|backend]` | Para monitorear el Policy Scan via API |
 
-El script verifica que todos los artefactos necesarios existen en `/tmp/tempStaticScanDir/`
-y reporta cuáles faltan. Ver [`scripts/prepare-artifacts.sh`](scripts/prepare-artifacts.sh).
+Ver el directorio [`scripts/`](scripts/) para el detalle de cada uno.
 
 ## Opción de mediano plazo — Mitigaciones permanentes en la plataforma
 
@@ -99,9 +101,9 @@ Ver detalle en [05-findings.md](05-findings.md).
 
 ## Recomendación priorizada
 
-| Prioridad | Acción | Esfuerzo | Impacto |
+| Prioridad | Acción | Esfuerzo | Estado |
 |---|---|---|---|
-| 1 | Mitigaciones permanentes (falsos positivos conocidos) | Bajo | Alto |
-| 2 | Script de preparación de artefactos | Bajo | Medio |
-| 3 | Proponer al equipo de release integración en pipeline | Medio | Muy alto |
-| 4 | Pipeline Scan automático en cada PR | Alto | Muy alto |
+| 1 | Mitigaciones permanentes (falsos positivos conocidos) | Bajo | Pendiente |
+| 2 | Scripts de flujo manual (`scripts/`) | Bajo | ✅ Disponible |
+| 3 | Proponer al equipo de release integración en pipeline | Medio | Pendiente |
+| 4 | Pipeline Scan automático en cada PR | Alto | Pendiente |
