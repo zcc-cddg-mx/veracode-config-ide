@@ -39,6 +39,13 @@ desarrollado como caso de prueba sobre el proyecto **Oficina Virtual** (`ov-ariz
 - [06-optimizacion.md](06-optimizacion.md) — Scripts disponibles, opciones de automatización e integración en pipeline
 - [07-reportes.md](07-reportes.md) — Tipos de reporte PDF, descarga manual y via script, estados de Policy
 
+## Estado actual (casos de prueba 2026-09-22)
+
+| Proyecto | Score | PCI | Acción pendiente |
+|---|---|---|---|
+| Backend | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
+| Frontend | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
+
 ## Aplicación registrada en Veracode
 
 | Campo | Valor |

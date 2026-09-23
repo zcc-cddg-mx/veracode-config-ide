@@ -1,59 +1,57 @@
 # Optimización del flujo Veracode
 
-El ciclo actual (Pipeline Scan + Policy Scan manual) tarda medio día mínimo
-y requiere intervención manual en la plataforma. Estas son las opciones para optimizarlo.
+---
+
+## Estado actual (casos de prueba 2026-09-22)
+
+| Proyecto | Score | PCI | Findings abiertos |
+|---|---|---|---|
+| Frontend | — | Pendiente Policy Scan oficial | 30 Medium (mayoría falsos positivos) |
+| Backend | 98/100 | **Did Not Pass** | 5 Medium · 0 High / Very High |
+
+El score de 98/100 indica que el proyecto está muy cerca de pasar. La barrera son
+5 findings Medium, de los cuales **solo 1 requiere un cambio de código**.
 
 ---
 
-## Flujo ideal — gestión por equipo de release / pipeline
+## Plan para pasar PCI — por esfuerzo
 
-El lugar correcto para el escaneo Veracode es el pipeline de despliegue, no la
-máquina del desarrollador. Razones:
+### Acción 1 — Corrección de código (1 archivo, alto impacto)
 
-- **Consistencia** — se escanea el mismo artefacto que va a producción, no lo que
-  tenía el dev en su máquina ese día
-- **Sin dependencia del desarrollador** — el flujo actual requiere VS Code, WSL2,
-  gnome-keyring, certs instalados... es frágil y no reproducible
-- **Trazabilidad automática** — el build del pipeline tiene número de versión,
-  commit SHA y fecha; el reporte Veracode queda ligado a ese artefacto exacto
-- **No bloquea el CAB de último minuto** — el scan corre en paralelo al proceso
-  de release, no como paso adicional que alguien recuerda el día anterior
+**`EncryptionUtils.java` en `feign-clients-head.jar`** — CWE-331 Insufficient Entropy.
 
-### Flujo propuesto
+Reemplazar `java.util.Random` por `java.security.SecureRandom`. Es el único finding
+en código propio del proyecto. Una vez corregido y re-escaneado, desaparece del reporte.
 
-```
-PR mergeado a `desarrollo`
-        │
-        ▼
-Pipeline build
-(compila artefactos: JS zip / JARs)
-        │
-        ▼
-Pipeline Scan Veracode  ◄── automático, ~15-90 min (referencia, casos de prueba)
-(credenciales HMAC como secrets del pipeline)
-        │
-        ├─ findings Very High / High ──► bloquea merge / notifica
-        │
-        └─ findings Medium o menos ──► continúa
-        │
-        ▼
-Release aprobado → Policy Scan en sandbox  ◄── automático
-(Upload & Scan API con app-id + sandbox target)
-        │
-        ▼
-Reporte oficial disponible antes del CAB
-(sin intervención manual)
+```java
+// Antes
+Random random = new Random();
+
+// Después
+SecureRandom random = new SecureRandom();
 ```
 
-### Lo que habría que coordinar con el equipo de release
+### Acción 2 — Mitigaciones en plataforma (sin cambios de código)
 
-| Item | Detalle |
-|---|---|
-| Credenciales | HMAC ID + Secret como secrets del pipeline (no en código) |
-| Threshold | Definir qué severidad bloquea (`Very High`, `High`) y qué solo notifica (`Medium`) |
-| Sandbox target | Un sandbox por ambiente (`dev`, `uat`, `prod`) o uno por componente |
-| Artefactos | Frontend: JS zip. Backend: `app-head.jar` + `feign-clients-head.jar` + `rest-tests-head.jar` |
-| Pipeline | Pendiente confirmar si es Azure DevOps o GitHub Actions |
+Aplicar en [https://analysiscenter.veracode.com](https://analysiscenter.veracode.com)
+una vez aprobado el cambio de `EncryptionUtils.java`:
+
+| Finding | Mitigación | Justificación |
+|---|---|---|
+| CWE-117 `ArizonaLoggerImpl.java` | Library: Vendor Notified | Librería NCDC, no código del proyecto |
+| CWE-80 `AmsZuulConfig.java` | Library: Vendor Notified | Librería NCDC, no código del proyecto |
+| CWE-331 `ZipkinConfiguration.java` | Library: Vendor Notified | Librería NCDC, no código del proyecto |
+| CWE-331 `Motor2ndStep.java` | Not Exploitable | Módulo de pruebas, no llega a producción |
+| CWE-798 frontend (26 findings) | Not Exploitable | Public keys por diseño (reCAPTCHA, Maps, GTM) |
+| CWE-80 frontend (3 findings) | Not Exploitable | Revisar si el input está sanitizado por DomSanitizer |
+| CWE-312 `fnol/app.module.ts` | Not Exploitable | Revisar si `fnolPassword` es credencial real o config |
+
+Una vez aprobadas estas mitigaciones, los findings no aparecen en reportes futuros.
+
+### Resultado esperado tras Acción 1 + Acción 2
+
+- Backend: 0 findings abiertos → PCI **Pass**
+- Frontend: 0 findings abiertos → PCI **Pass**
 
 ---
 
@@ -72,38 +70,71 @@ Policy Scan en plataforma (~2-4 horas, ref. casos de prueba)
 Dev → Descargar PDF → Adjuntar en Jira → CAB
 ```
 
-**Problema:** todo el ciclo cae sobre el momento del pase a producción porque
-el equipo no ejecuta el Pipeline Scan durante el sprint. Resultado: bloqueo de último minuto.
+**Problema:** todo el ciclo cae sobre el momento del pase a producción.
+Resultado: bloqueo de último minuto.
 
 ---
 
-## Opción de corto plazo — Scripts disponibles
-
-Mientras no se integra en el pipeline, los siguientes scripts cubren el flujo manual:
+## Scripts disponibles para el flujo manual
 
 | Script | Cuándo usarlo |
 |---|---|
 | `./scripts/verify-setup.sh` | Antes del primer scan — confirma entorno y variables |
 | `./scripts/prepare-artifacts.sh` | Antes de subir al sandbox — verifica artefactos disponibles |
-| `./scripts/pipeline-scan.sh [frontend\|backend]` | Para obtener JSON de findings localmente |
-| `./scripts/check-build-status.py [frontend\|backend]` | Para monitorear el Policy Scan via API |
+| `./scripts/pipeline-scan.sh [frontend\|backend]` | Obtener JSON de findings localmente |
+| `./scripts/check-build-status.py [frontend\|backend]` | Monitorear el Policy Scan via API |
+| `./scripts/download-report.py [frontend\|backend]` | Descargar el reporte PDF oficial |
 
-Ver el directorio [`scripts/`](scripts/) para el detalle de cada uno.
+---
 
-## Opción de mediano plazo — Mitigaciones permanentes en la plataforma
+## Flujo ideal — integración en pipeline (largo plazo)
 
-Para los findings recurrentes que son falsos positivos (CWE-798 en Angular,
-findings en librerías NCDC), crear mitigaciones permanentes en la plataforma Veracode.
-Una vez aprobadas, no aparecen en futuros reportes como findings abiertos.
+El lugar correcto para el escaneo Veracode es el pipeline de despliegue, no la
+máquina del desarrollador:
 
-**Impacto:** Los próximos reportes del CAB serán más limpios sin trabajo adicional.
-Ver detalle en [05-findings.md](05-findings.md).
+- **Consistencia** — se escanea el mismo artefacto que va a producción
+- **Sin dependencia del desarrollador** — el flujo actual requiere VS Code, WSL2, gnome-keyring, certs instalados
+- **Trazabilidad automática** — el reporte queda ligado al commit SHA y versión exacta
+- **No bloquea el CAB de último minuto** — el scan corre en paralelo al proceso de release
+
+```
+PR mergeado a `desarrollo`
+        │
+        ▼
+Pipeline build (compila artefactos: JS zip / JARs)
+        │
+        ▼
+Pipeline Scan Veracode  ◄── automático, ~15-90 min (ref. casos de prueba)
+(credenciales HMAC como secrets del pipeline)
+        │
+        ├─ findings Very High / High ──► bloquea merge / notifica
+        └─ findings Medium o menos ──► continúa
+        │
+        ▼
+Release aprobado → Policy Scan en sandbox  ◄── automático
+        │
+        ▼
+Reporte oficial disponible antes del CAB (sin intervención manual)
+```
+
+### Coordinación necesaria con el equipo de release
+
+| Item | Detalle |
+|---|---|
+| Credenciales | HMAC ID + Secret como secrets del pipeline (no en código) |
+| Threshold | `Very High` / `High` bloquea — `Medium` solo notifica |
+| Sandbox target | Un sandbox por ambiente (`dev`, `uat`, `prod`) o uno por componente |
+| Artefactos | Frontend: `$VERACODE_ARTIFACT_FRONTEND`. Backend: `app-head.jar` + `feign-clients-head.jar` + `rest-tests-head.jar` |
+| Pipeline | Pendiente confirmar si es Azure DevOps o GitHub Actions |
+
+---
 
 ## Recomendación priorizada
 
 | Prioridad | Acción | Esfuerzo | Estado |
 |---|---|---|---|
-| 1 | Mitigaciones permanentes (falsos positivos conocidos) | Bajo | Pendiente |
-| 2 | Scripts de flujo manual (`scripts/`) | Bajo | ✅ Disponible |
-| 3 | Proponer al equipo de release integración en pipeline | Medio | Pendiente |
+| 1 | Fix `EncryptionUtils.java`: `Random` → `SecureRandom` | Muy bajo (1 línea) | **Pendiente** |
+| 2 | Mitigaciones permanentes en plataforma (NCDC libs + falsos positivos) | Bajo | **Pendiente** |
+| 3 | Proponer integración en pipeline al equipo de release | Medio | Pendiente |
 | 4 | Pipeline Scan automático en cada PR | Alto | Pendiente |
+| — | Scripts de flujo manual (`scripts/`) | — | ✅ Disponible |
