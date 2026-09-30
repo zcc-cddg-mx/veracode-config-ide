@@ -23,6 +23,27 @@ Los findings aparecen como diagnósticos inline en el editor. Corregir antes de 
 **Nota:** Si el scan se congela en "Found 1 scannable module", es normal — está procesando
 el artefacto en los servidores. Esperar.
 
+## Paso 1b — Archivar artefactos (inmediatamente después del scan)
+
+**Cuándo:** Justo al terminar el Pipeline Scan, antes de abrir otro proyecto.
+
+`/tmp/tempStaticScanDir/` es **acumulativo** — la extensión nunca lo limpia entre proyectos.
+Si se abre un segundo proyecto y se escanea, los artefactos del primero siguen ahí mezclados.
+Archivar inmediatamente garantiza una copia limpia asociada al proyecto correcto.
+
+```bash
+# Sin filtro — copia todo el contenido de /tmp/tempStaticScanDir/ (snapshot completo)
+./scripts/archive-artifacts.sh ov-arizona-restat
+
+# Con filtro — copia solo los artefactos del proyecto (recomendado si hay mezcla)
+./scripts/archive-artifacts.sh ov-arizona-restat restat-narayana
+```
+
+Destino: `~/veracode-artifacts/<proyecto>/<fecha>/`
+
+Para subir al sandbox en el Paso 3, usar los artefactos del archivo en lugar del `/tmp/`
+(más seguro — no depende del estado actual del directorio temporal).
+
 ## Paso 2 — Obtener JSON local (opcional, para análisis)
 
 Si se necesita el JSON con los findings para análisis o reporte HTML:

@@ -165,10 +165,35 @@ y esperar a que la extensión complete el scan (~90 min en el caso de prueba del
 
 ---
 
+## Comportamiento acumulativo de /tmp/tempStaticScanDir/
+
+La extensión VS Code **nunca limpia** `/tmp/tempStaticScanDir/` entre proyectos.
+Si se escanean dos proyectos en la misma sesión, los artefactos se acumulan en el mismo directorio.
+
+**Consecuencias:**
+- Al subir al sandbox manualmente, es fácil confundir artefactos de proyectos distintos
+- Si dos proyectos generan un JAR con el mismo nombre, el segundo sobreescribe al primero
+- El directorio puede crecer hasta varios GB en sesiones largas
+
+**Mitigación recomendada:** archivar después de cada scan con el filtro del proyecto:
+
+```bash
+# Inmediatamente al terminar el scan:
+./scripts/archive-artifacts.sh ov-arizona-restat restat-narayana
+./scripts/archive-artifacts.sh ov-arizona-core                    # sin filtro: copia todo
+
+# Subir al sandbox desde el archivo, no desde /tmp:
+ls ~/veracode-artifacts/ov-arizona-restat/2026-09-30/
+```
+
+---
+
 ## Verificar integridad de artefactos
 
 ```bash
 sha256sum /tmp/tempStaticScanDir/<artefacto>.jar
+# O desde el archivo:
+sha256sum ~/veracode-artifacts/<proyecto>/<fecha>/<artefacto>.jar
 ```
 
 Comparar contra los valores de referencia que el equipo registre por build/sprint.
