@@ -21,8 +21,14 @@ Dos juegos en el perfil de shell:
 | `VERACODE_SANDBOX_FRONTEND_GUID` | UUID | GUID del sandbox frontend |
 | `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend (`ov-arizona-backend-ecuador`) |
 | `VERACODE_SANDBOX_CORE_GUID` | UUID | GUID del sandbox backend base (`ov-arizona-core`) |
+| `VERACODE_SANDBOX_RESTAT_GUID` | UUID | GUID del sandbox restat (`ov-arizona-restat`) |
 | `VERACODE_ARTIFACT_FRONTEND` | nombre de archivo | Zip JS generado por la extensión en `/tmp/tempStaticScanDir/` |
 | `VERACODE_ARTIFACT_BACKEND_JARS` | lista separada por espacios | JARs backend con findings (opcional — ver `env.example.sh`) |
+
+> **Atención:** al agregar GUIDs al perfil de shell, no incluir espacios después del `=`.
+> `export VERACODE_SANDBOX_RESTAT_GUID= 7846c2...` (espacio) hace que los scripts reciban
+> un GUID con un espacio inicial y fallan con "sandbox GUID not found". La forma correcta:
+> `export VERACODE_SANDBOX_RESTAT_GUID=7846c2...` (sin espacio).
 
 El archivo `~/.veracode/credentials` replica las credenciales HMAC con claves
 `veracode_api_key_id` / `veracode_api_key_secret` (permisos 600).
