@@ -2,7 +2,7 @@
 """
 Descarga el reporte PDF del Policy Scan más reciente desde la plataforma Veracode.
 
-Uso: python3 scripts/download-report.py [frontend|backend] [--output archivo.pdf]
+Uso: python3 scripts/download-report.py [frontend|backend|core] [--output archivo.pdf]
 
 Requiere: pip install veracode-api-signing requests
 """
@@ -29,16 +29,38 @@ def get_env(var):
         sys.exit(1)
     return val
 
-def get_build_id(auth, app_guid, sandbox_guid):
+def resolve_numeric_ids(auth, app_guid, sandbox_guid):
+    """Convierte GUIDs a IDs numéricos que requiere el XML API v5."""
+    r = requests.get(
+        f"https://api.veracode.com/appsec/v1/applications/{app_guid}",
+        auth=auth, verify=CA_CERT,
+    )
+    r.raise_for_status()
+    app_id = r.json()["id"]
+
+    r2 = requests.get(
+        f"https://api.veracode.com/appsec/v1/applications/{app_guid}/sandboxes",
+        auth=auth, verify=CA_CERT,
+    )
+    r2.raise_for_status()
+    sandboxes = r2.json().get("_embedded", {}).get("sandboxes", [])
+    sandbox_id = next(
+        (sb["id"] for sb in sandboxes if sb.get("guid") == sandbox_guid), None
+    )
+    if not sandbox_id:
+        print(f"Error: sandbox GUID {sandbox_guid} no encontrado en la aplicación.")
+        sys.exit(1)
+    return app_id, sandbox_id
+
+def get_build_id(auth, app_id, sandbox_id):
     r = requests.get(
         "https://analysiscenter.veracode.com/api/5.0/getbuildinfo.do",
-        params={"app_id": app_guid, "sandbox_id": sandbox_guid},
+        params={"app_id": app_id, "sandbox_id": sandbox_id},
         auth=auth,
         verify=CA_CERT,
     )
     r.raise_for_status()
     root = ET.fromstring(r.text)
-    # El namespace varía según la versión de la API
     build = (
         root.find(".//{https://analysiscenter.veracode.com/schema/4.0/buildinfo}build")
         or root.find(".//build")
@@ -88,8 +110,11 @@ sandbox_guid = get_env(SANDBOX_MAP[args.target])
 
 auth = RequestsAuthPluginVeracodeHMAC()
 
-print(f"→ Consultando build más reciente ({args.target})...")
-build_id = get_build_id(auth, app_guid, sandbox_guid)
+print(f"→ Resolviendo IDs numéricos para sandbox '{args.target}'...")
+app_id, sandbox_id = resolve_numeric_ids(auth, app_guid, sandbox_guid)
+
+print(f"→ Consultando build más reciente...")
+build_id = get_build_id(auth, app_id, sandbox_id)
 print(f"  build_id: {build_id}")
 
 print(f"→ Descargando reporte PDF...")
