@@ -19,7 +19,8 @@ Dos juegos en el perfil de shell:
 | `VERACODE_CLI` | path absoluto | Ruta al binario CLI (v2.52.1) |
 | `VERACODE_APP_GUID` | UUID | GUID de la app en la plataforma |
 | `VERACODE_SANDBOX_FRONTEND_GUID` | UUID | GUID del sandbox frontend |
-| `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend |
+| `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend (`ov-arizona-backend-ecuador`) |
+| `VERACODE_SANDBOX_CORE_GUID` | UUID | GUID del sandbox backend base (`ov-arizona-core`) |
 | `VERACODE_ARTIFACT_FRONTEND` | nombre de archivo | Zip JS generado por la extensión en `/tmp/tempStaticScanDir/` |
 | `VERACODE_ARTIFACT_BACKEND_JARS` | lista separada por espacios | JARs backend con findings (opcional — ver `env.example.sh`) |
 

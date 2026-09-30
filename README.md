@@ -78,3 +78,4 @@ Veracode en su flujo de desarrollo.
 | App GUID | `$VERACODE_APP_GUID` |
 | Sandbox Frontend | `ov-arizona-frontend-ecuador` (GUID: `$VERACODE_SANDBOX_FRONTEND_GUID`) |
 | Sandbox Backend | `ov-arizona-backend-ecuador` (GUID: `$VERACODE_SANDBOX_BACKEND_GUID`) |
+| Sandbox Backend Core | `ov-arizona-core` (GUID: `$VERACODE_SANDBOX_CORE_GUID`) |

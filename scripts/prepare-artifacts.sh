@@ -26,8 +26,25 @@ fi
 BACKEND_JARS="${VERACODE_ARTIFACT_BACKEND_JARS:-app-head.jar feign-clients-head.jar rest-tests-head.jar}"
 
 echo ""
-echo "Backend (JARs con findings — caso de prueba, ajustar según proyecto):"
+echo "Backend Ecuador (JARs con findings — caso de prueba, ajustar según proyecto):"
 for jar in $BACKEND_JARS; do
+  if ls -lh "$SCAN_DIR/$jar" 2>/dev/null; then
+    :
+  else
+    echo "  ✗ FALTA: $jar"
+    echo "    Ejecutar Pipeline Scan del backend en VS Code y volver a intentar."
+    ERRORS=$((ERRORS + 1))
+  fi
+done
+
+# CASO DE PRUEBA: lista de JARs de ov-arizona-core (2026-09-30).
+# Reemplazar con los artefactos con findings de tu propio proyecto.
+# Puedes sobreescribir via: export VERACODE_ARTIFACT_CORE_JARS="jar1.jar jar2.jar"
+CORE_JARS="${VERACODE_ARTIFACT_CORE_JARS:-app-2.0.4-core-SNAPSHOT.jar exchange-2.0.4-core-SNAPSHOT.jar restat-narayana-bridge-spring-2.0.4-core-SNAPSHOT.jar migration-2.0.4-core-SNAPSHOT.jar cryptography-2.0.4-core-SNAPSHOT.jar print-2.0.4-core-SNAPSHOT.jar core-2.0.4-core-SNAPSHOT.jar recaptchav3-2.0.4-core-SNAPSHOT.jar tracing-2.0.4-core-SNAPSHOT.jar rating-structure-2.0.4-core-SNAPSHOT.jar text-file-io-2.0.4-core-SNAPSHOT.jar restat-tx-node-preselection-2.0.4-core-SNAPSHOT.jar jpametamodelgenerator-2.0.4-core-SNAPSHOT.jar}"
+
+echo ""
+echo "Backend Core (JARs con findings — caso de prueba, ajustar según proyecto):"
+for jar in $CORE_JARS; do
   if ls -lh "$SCAN_DIR/$jar" 2>/dev/null; then
     :
   else
