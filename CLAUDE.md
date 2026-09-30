@@ -48,6 +48,7 @@ Seven environment variables in the shell profile (`~/.zshrc`, `~/.bashrc`, etc. 
 
 | Script | Purpose |
 |---|---|
+| `scripts/list-sandboxes.py` | List all sandboxes with GUIDs (REST API v1, uses `VERACODE_APP_GUID`) |
 | `scripts/install-deps.sh` | VS Code extension, Python libs, gnome-keyring |
 | `scripts/install-certs.sh <fw.pem> <proxy.pem>` | Corporate SSL certs (Linux + macOS) |
 | `scripts/verify-setup.sh` | Validate env vars and tools before first scan |

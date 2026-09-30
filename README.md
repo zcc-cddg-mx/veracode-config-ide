@@ -54,6 +54,7 @@ Veracode en su flujo de desarrollo.
 | `./scripts/install-certs.sh <fw.pem> <proxy.pem>` | Primera vez — instala certificados SSL corporativos |
 | `./scripts/verify-setup.sh` | Antes del primer scan — valida variables y herramientas |
 | `./scripts/prepare-artifacts.sh` | Antes de subir al sandbox — confirma que los artefactos existen |
+| `./scripts/list-sandboxes.py` | Listar sandboxes de la app con sus GUIDs |
 | `./scripts/pipeline-scan.sh [frontend\|backend]` | Scan local rápido → genera JSON de findings |
 | `./scripts/check-build-status.py [frontend\|backend]` | Monitorear el Policy Scan via API |
 | `./scripts/download-report.py [frontend\|backend]` | Descargar el reporte PDF oficial |
