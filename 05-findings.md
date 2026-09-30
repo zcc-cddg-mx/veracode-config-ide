@@ -89,3 +89,37 @@ CWEs detallados pendientes de revisión en VS Code; tabla se actualizará tras i
 
 **Contraste con `ov-arizona-backend-ecuador`:** el módulo `feign-clients` tiene 0 findings en el
 framework base — el CWE-331 (`EncryptionUtils.java`) es específico de la rama Ecuador, no del core.
+
+---
+
+## Referencia del caso de prueba — Restat *(ov-arizona-restat — 2026-09-30)*
+
+Pipeline Scan sobre proyecto Thorntail (WildFly Swarm). **71 findings totales** distribuidos en 3 artefactos.
+CWEs del thin JAR pendientes de revisión en VS Code.
+
+### Thin JAR — código propio (`restat-narayana-coordinator-0.0.0-SNAPSHOT.jar`)
+
+**4 findings** — origen: código propio del proyecto. CWEs a revisar en VS Code inline.
+
+| Módulo | Findings | Acción |
+|---|---|---|
+| `restat-narayana-coordinator-0.0.0-SNAPSHOT.jar` | 4 | Revisar CWEs en VS Code — posible fix en código |
+
+### Fat JAR — dependencias bundleadas (`restat-narayana-coordinator-thorntail.jar`)
+
+**64 findings** — origen: dependencias runtime empaquetadas en el uber JAR.
+La extensión no puede mostrar diagnósticos inline (`Cannot locate source file`) porque
+los fuentes de WildFly Swarm y JBoss Modules no están en el workspace.
+
+| Librería bundleada | Origen |
+|---|---|
+| `org/wildfly/swarm/*` | WildFly Swarm / Thorntail framework |
+| `org/jboss/modules/*` | JBoss Modules |
+| `org/yaml/snakeyaml/*` | SnakeYAML |
+| `__redirected/*` | JBoss JAXP redirects |
+
+**Mitigación aplicable a todos:** "Library: Vendor Notified" — el equipo no controla estas dependencias.
+
+### JS (`veracode-auto-pack-ov-arizona-restat-js-no-pm.zip`)
+
+**3 findings** — archivos de configuración JS. CWEs a confirmar en VS Code.

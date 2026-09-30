@@ -55,6 +55,21 @@ for jar in $CORE_JARS; do
 done
 
 echo ""
+RESTAT_JARS="${VERACODE_ARTIFACT_RESTAT_JARS:-restat-narayana-coordinator-0.0.0-SNAPSHOT.jar restat-narayana-coordinator-thorntail.jar}"
+
+echo ""
+echo "Restat (thin + fat JAR — caso de prueba, ajustar según proyecto):"
+for jar in $RESTAT_JARS; do
+  if ls -lh "$SCAN_DIR/$jar" 2>/dev/null; then
+    :
+  else
+    echo "  ✗ FALTA: $jar"
+    echo "    Ejecutar Pipeline Scan del restat en VS Code y volver a intentar."
+    ERRORS=$((ERRORS + 1))
+  fi
+done
+
+echo ""
 if [ "$ERRORS" -eq 0 ]; then
   echo "Todos los artefactos disponibles. Listos para subir al sandbox."
   echo "Ver 03-flujo-completo.md — Paso 3."

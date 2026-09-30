@@ -18,6 +18,7 @@ SANDBOX_MAP = {
     "frontend": "VERACODE_SANDBOX_FRONTEND_GUID",
     "backend":  "VERACODE_SANDBOX_BACKEND_GUID",
     "core":     "VERACODE_SANDBOX_CORE_GUID",
+    "restat":   "VERACODE_SANDBOX_RESTAT_GUID",
 }
 
 CA_CERT = os.environ.get("SSL_CERT_FILE", True)
@@ -87,7 +88,7 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument(
     "target",
-    choices=["frontend", "backend", "core"],
+    choices=["frontend", "backend", "core", "restat"],
     nargs="?",
     default="frontend",
     help="Sandbox a consultar (default: frontend)",

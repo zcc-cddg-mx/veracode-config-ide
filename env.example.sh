@@ -21,6 +21,7 @@ export VERACODE_APP_GUID=""
 export VERACODE_SANDBOX_FRONTEND_GUID=""
 export VERACODE_SANDBOX_BACKEND_GUID=""
 export VERACODE_SANDBOX_CORE_GUID=""
+export VERACODE_SANDBOX_RESTAT_GUID=""
 
 # ── Artefactos ───────────────────────────────────────────────────────────────
 # Nombre del zip frontend generado por la extensión VS Code en /tmp/tempStaticScanDir/

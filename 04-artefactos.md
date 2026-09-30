@@ -125,6 +125,36 @@ de findings propios, este tradeoff es aceptable.
 
 ---
 
+## Referencia del caso de prueba — Restat *(ov-arizona-restat — 2026-09-30)*
+
+Proyecto Thorntail (WildFly Swarm). El GradlePackager requirió corregir `gradle-wrapper.properties`
+antes del primer scan exitoso (ver nota al pie). Generó **3 artefactos**:
+
+| Artefacto | Tamaño | Findings | Subir? | Nota |
+|---|---|---|---|---|
+| `restat-narayana-coordinator-0.0.0-SNAPSHOT.jar` | 20.9 KB | **4** | ✅ Sí | Thin JAR — código propio del proyecto |
+| `restat-narayana-coordinator-thorntail.jar` | 93.6 MB | **64** | ✅ Sí | Fat JAR — incluye todas las deps runtime |
+| `veracode-auto-pack-ov-arizona-restat-js-no-pm.zip` | 2.8 KB | 3 | ✅ Sí | Archivos JS de configuración |
+
+**Total a subir: ~94.5 MB**
+
+**Estrategia de upload — patrón fat JAR (Thorntail/Spring Boot uber):**
+
+El thin JAR contiene los 4 findings del código propio y es el artefacto prioritario.
+El fat JAR empaqueta todas las dependencias runtime (WildFly Swarm, JBoss Modules, SnakeYAML)
+y produce ~60 findings adicionales de terceros — todos mitigables como "Library: Vendor Notified".
+Subir ambos da cobertura completa; subir solo el thin JAR cubre únicamente el código propio.
+
+> **Nota — gradle-wrapper.properties:** el proyecto tenía `distributionUrl=file:///home/ec2-user/tmp/gradle-5.2-bin.zip`
+> (ruta hardcodeada a un servidor EC2). Corregir a `https://services.gradle.org/distributions/gradle-5.2-bin.zip`
+> (o la URL comentada en el propio archivo) antes de abrir en VS Code.
+
+**"Cannot locate source file" en VS Code:** los ~60 errors de `org/wildfly/swarm/*` y `org/jboss/*`
+son esperados para el fat JAR — la extensión no puede mostrar diagnósticos inline para clases
+bundleadas sin fuentes locales. Los 4 findings del thin JAR sí muestran diagnósticos correctamente.
+
+---
+
 ## Comportamiento del GradlePackager
 
 Si el build falla en el primer intento, la extensión reintenta automáticamente.

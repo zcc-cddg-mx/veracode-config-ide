@@ -16,6 +16,7 @@ SANDBOX_MAP = {
     "frontend": "VERACODE_SANDBOX_FRONTEND_GUID",
     "backend":  "VERACODE_SANDBOX_BACKEND_GUID",
     "core":     "VERACODE_SANDBOX_CORE_GUID",
+    "restat":   "VERACODE_SANDBOX_RESTAT_GUID",
 }
 
 def get_env(var):
@@ -51,7 +52,7 @@ def resolve_numeric_ids(auth, verify, app_guid, sandbox_guid):
 target = sys.argv[1] if len(sys.argv) > 1 else "frontend"
 
 if target not in SANDBOX_MAP:
-    print(f"Uso: {sys.argv[0]} [frontend|backend|core]")
+    print(f"Uso: {sys.argv[0]} [frontend|backend|core|restat]")
     sys.exit(1)
 
 os.environ["VERACODE_API_KEY_ID"]     = get_env("VERACODE_HMAC_CLIENT_ID")

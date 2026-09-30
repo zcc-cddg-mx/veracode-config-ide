@@ -68,6 +68,7 @@ Veracode en su flujo de desarrollo.
 | Backend (`ov-arizona-backend-ecuador`) | Policy Scan | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
 | Frontend (`ov-arizona-frontend-ecuador`) | Pipeline Scan | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
 | Backend base (`ov-arizona-core`) | Pipeline Scan | — | Pendiente Policy Scan | ~27 findings en 13 módulos — revisar CWEs, subir JARs al sandbox |
+| Restat (`ov-arizona-restat`) | Pipeline Scan | — | Pendiente Policy Scan | 4 findings código propio + 64 deps fat JAR — subir thin + thorntail al sandbox |
 
 ## Aplicación registrada en Veracode (caso de prueba)
 
