@@ -63,3 +63,29 @@ sobre cada finding individual. Una vez aprobadas, persisten en escaneos futuros.
 > Las librerías NCDC (`eu.ncdc.*`) son un framework interno. El scanner detecta los findings
 > en el bytecode compilado pero no puede mapearlos a código fuente local. El equipo del
 > proyecto no puede modificarlas directamente.
+
+---
+
+## Referencia del caso de prueba — Backend base *(ov-arizona-core — 2026-09-30)*
+
+Pipeline Scan sobre el monorepo completo del framework. **~27 findings en 13 módulos.**
+CWEs detallados pendientes de revisión en VS Code; tabla se actualizará tras inspección.
+
+| Módulo | Findings | Nota |
+|---|---|---|
+| `app-2.0.4-core-SNAPSHOT.jar` | 4 | Mismo patrón que `app-head.jar` de Ecuador — probable NCDC |
+| `exchange-2.0.4-core-SNAPSHOT.jar` | 7 | Módulo de integración — revisar CWEs en VS Code |
+| `restat-narayana-bridge-spring-2.0.4-core-SNAPSHOT.jar` | 3 | Bridge de transacciones distribuidas |
+| `migration-2.0.4-core-SNAPSHOT.jar` | 2 | Módulo de migración de datos |
+| `cryptography-2.0.4-core-SNAPSHOT.jar` | 2 | Módulo de criptografía — revisar prioridad |
+| `print-2.0.4-core-SNAPSHOT.jar` | 2 | Módulo de generación de reportes |
+| `core-2.0.4-core-SNAPSHOT.jar` | 1 | JAR principal del framework |
+| `recaptchav3-2.0.4-core-SNAPSHOT.jar` | 1 | Integración reCAPTCHA |
+| `tracing-2.0.4-core-SNAPSHOT.jar` | 1 | Módulo de trazabilidad |
+| `rating-structure-2.0.4-core-SNAPSHOT.jar` | 1 | Estructura de tarifas |
+| `text-file-io-2.0.4-core-SNAPSHOT.jar` | 1 | I/O de archivos de texto |
+| `restat-tx-node-preselection-2.0.4-core-SNAPSHOT.jar` | 1 | Transacciones distribuidas |
+| `jpametamodelgenerator-2.0.4-core-SNAPSHOT.jar` | 1 | Generador JPA |
+
+**Contraste con `ov-arizona-backend-ecuador`:** el módulo `feign-clients` tiene 0 findings en el
+framework base — el CWE-331 (`EncryptionUtils.java`) es específico de la rama Ecuador, no del core.

@@ -10,7 +10,7 @@ durante el Pipeline Scan. No es necesario compilar manualmente.
 
 ## Estrategia de selección
 
-La extensión puede generar decenas de artefactos (JARs, zips). No es necesario subir todos.
+La extensión puede generar desde decenas hasta más de 100 artefactos (JARs, zips). No es necesario subir todos.
 
 **Criterio general:**
 1. Ejecutar el Pipeline Scan local (VS Code extension o `scripts/pipeline-scan.sh`)
@@ -26,6 +26,12 @@ for f in data.get('findings',[]): print(f.get('files',{}).get('source_file',{}).
 " | sort -u
 ```
 
+**Comportamiento esperado durante el empaquetado:**
+
+- **JARs vacíos ignorados:** el GradlePackager omite automáticamente los JARs que no contienen class files (`Skipping jar file does not contain any class files`). No requiere acción.
+- **Zips JS/Python pueden fallar:** en proyectos Java puro, el auto-pack de JS/Python puede fallar con "No files found for scanning". Es esperado — no interrumpe el scan ni afecta los resultados Java.
+- **Scans paralelos del mismo JAR:** la extensión puede lanzar múltiples Pipeline Scans sobre el mismo artefacto (uno por módulo del workspace que lo referencia). Todos deben completar; los resultados son idénticos.
+
 ---
 
 ## Referencia del caso de prueba — Frontend *(ov-arizona-frontend-ecuador)*
@@ -40,7 +46,7 @@ no afecta la calidad del escaneo.
 
 ---
 
-## Referencia del caso de prueba — Backend *(ov-arizona-backend-ecuador)*
+## Referencia del caso de prueba — Backend *(ov-arizona-backend-ecuador — 2026-09-22)*
 
 La extensión generó 59 artefactos; solo 3 tenían findings:
 
@@ -52,6 +58,35 @@ La extensión generó 59 artefactos; solo 3 tenían findings:
 | Otros 56 JARs | varios | 0 | No necesario |
 
 **Total mínimo subido para cobertura completa: ~73.3 MB**
+
+---
+
+## Referencia del caso de prueba — Backend base *(ov-arizona-core — 2026-09-30)*
+
+Monorepo completo del framework. La extensión generó **136 artefactos**; 13 tenían findings:
+
+| Artefacto | Tamaño | Findings | Subir? |
+|---|---|---|---|
+| `app-2.0.4-core-SNAPSHOT.jar` | 72.2 MB | 4 | ✅ Sí |
+| `exchange-2.0.4-core-SNAPSHOT.jar` | 202.3 KB | 7 | ✅ Sí |
+| `restat-narayana-bridge-spring-2.0.4-core-SNAPSHOT.jar` | 68.4 KB | 3 | ✅ Sí |
+| `migration-2.0.4-core-SNAPSHOT.jar` | 52.9 KB | 2 | ✅ Sí |
+| `cryptography-2.0.4-core-SNAPSHOT.jar` | 42.8 KB | 2 | ✅ Sí |
+| `print-2.0.4-core-SNAPSHOT.jar` | 89.3 KB | 2 | ✅ Sí |
+| `core-2.0.4-core-SNAPSHOT.jar` | 7.1 KB | 1 | ✅ Sí |
+| `recaptchav3-2.0.4-core-SNAPSHOT.jar` | 9.3 KB | 1 | ✅ Sí |
+| `tracing-2.0.4-core-SNAPSHOT.jar` | 3.0 KB | 1 | ✅ Sí |
+| `rating-structure-2.0.4-core-SNAPSHOT.jar` | 46.5 KB | 1 | ✅ Sí |
+| `text-file-io-2.0.4-core-SNAPSHOT.jar` | 36.7 KB | 1 | ✅ Sí |
+| `restat-tx-node-preselection-2.0.4-core-SNAPSHOT.jar` | 9.9 KB | 1 | ✅ Sí |
+| `jpametamodelgenerator-2.0.4-core-SNAPSHOT.jar` | 55.2 KB | 1 | ✅ Sí |
+| Otros 123 JARs | varios | 0 | No necesario |
+
+**Total mínimo subido: ~73.7 MB** (dominado por `app-2.0.4-core-SNAPSHOT.jar`)
+
+> El naming `-2.0.4-core-SNAPSHOT` refleja la versión Gradle del proyecto en ese branch.
+> Cada branch o build puede producir un sufijo diferente (ej. `-head`, `-SNAPSHOT`, `-release`).
+> La extensión genera el nombre automáticamente — no hardcodear en scripts.
 
 ---
 
