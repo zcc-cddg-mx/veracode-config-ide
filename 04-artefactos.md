@@ -88,6 +88,41 @@ Monorepo completo del framework. La extensión generó **136 artefactos**; 13 te
 > Cada branch o build puede producir un sufijo diferente (ej. `-head`, `-SNAPSHOT`, `-release`).
 > La extensión genera el nombre automáticamente — no hardcodear en scripts.
 
+### Prescan en la plataforma — advertencias "Missing Supporting Files"
+
+Al subir solo los 13 JARs con findings (en lugar de los 136 generados), la plataforma muestra
+advertencias de tipo `Missing Supporting Files` en el prescan. Esto es **esperado y no bloquea el scan**.
+
+**Resumen del prescan del caso de prueba (2026-09-30):**
+
+| Módulo | Estado prescan | Dependencias faltantes |
+|---|---|---|
+| `app-2.0.4-core-SNAPSHOT.jar` | ✅ OK | — |
+| `restat-tx-node-preselection-2.0.4-core-SNAPSHOT.jar` | ✅ OK | — |
+| `tracing-2.0.4-core-SNAPSHOT.jar` | ✅ OK | — |
+| `core-2.0.4-core-SNAPSHOT.jar` | ⚠️ No supporting files | — |
+| `cryptography-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 17 files | BouncyCastle/PGP (`name.neuhalfen.*`) |
+| `exchange-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 5 files | NCDC framework (`eu.ncdc.arizona.core.*`) |
+| `jpametamodelgenerator-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 24 files | JBoss Roaster (`org.jboss.forge.roaster.*`) |
+| `migration-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 3 files | NCDC framework |
+| `print-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 1 file | NCDC multievaluator |
+| `rating-structure-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 8 files | NCDC framework |
+| `recaptchav3-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 1 file | NCDC utils |
+| `restat-narayana-bridge-spring-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 1 file | Narayana (`me.snowdrop.*`) |
+| `text-file-io-2.0.4-core-SNAPSHOT.jar` | ⚠️ Missing - 4 files | NCDC framework |
+
+**Por qué ocurre:** los JARs faltantes son dependencias del framework NCDC (`eu.ncdc.arizona.core.*`)
+y librerías de terceros que están entre los 123 JARs con 0 findings — no se subieron porque no
+aportarían findings adicionales.
+
+**Impacto:** todas las advertencias son `(Optional)` y `has_fatal_errors="false"`. Veracode reduce
+el alcance del análisis cross-module (no puede trazar flujos de datos hacia dependencias no subidas),
+pero los findings propios de cada módulo se detectan igualmente. Para un primer scan o revisión
+de findings propios, este tradeoff es aceptable.
+
+**Si se necesita cobertura completa de data flow:** subir también los JARs del framework NCDC
+(los más referenciados: `eu.ncdc.arizona.core.*`), aunque tengan 0 findings propios.
+
 ---
 
 ## Comportamiento del GradlePackager
