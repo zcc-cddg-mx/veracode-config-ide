@@ -69,7 +69,7 @@ Veracode en su flujo de desarrollo.
 | Backend (`ov-arizona-backend-ecuador`) | Policy Scan | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
 | Frontend (`ov-arizona-frontend-ecuador`) | Pipeline Scan | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
 | Backend base (`ov-arizona-core`) | Policy Scan en proceso | — | En evaluación | Artefactos subidos (2026-09-30), scan iniciado ~17:44 — monitorear con `check-build-status.py core` |
-| Restat (`ov-arizona-restat`) | Policy Scan en proceso | — | En evaluación | Artefactos subidos (2026-09-30), Pre-Scan Submitted ~18:41 — monitorear con `check-build-status.py restat` |
+| Restat (`ov-arizona-restat`) | Policy Scan ✅ | 97/100 | **Conditional Pass** | CWE-80 High en `index.html:186` — fix by 29/11/2026 (en gracia). 3 Medium (CWE-73, CWE-601×2) |
 
 ## Aplicación registrada en Veracode (caso de prueba)
 

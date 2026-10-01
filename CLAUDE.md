@@ -90,7 +90,7 @@ Reference values from test runs — may change with each code version:
 - **Frontend `ov-arizona-frontend-ecuador` (2026-09-22) — 30 Medium:** 26 CWE-798 false positives (reCAPTCHA/Maps/GTM public keys in `environment.*.ts`); 3 CWE-80 XSS via `Node.appendChild`; 1 CWE-312 in `fnol/app.module.ts`.
 - **Backend `ov-arizona-backend-ecuador` (2026-09-22) — 5 Medium (98/100, PCI Did Not Pass):** 4 NCDC framework (`app-head.jar`); 1 CWE-331 `EncryptionUtils.java` in `feign-clients-head.jar` (project code, `Random` → `SecureRandom`); 1 in test module.
 - **Backend base `ov-arizona-core` (2026-09-30) — ~27 findings en 13 módulos:** Pipeline Scan only. Main: `app` (4), `exchange` (7), `restat-narayana-bridge-spring` (3). CWE details pending VS Code inspection. `feign-clients` has 0 findings here — CWE-331 is Ecuador-branch-specific.
-- **Restat `ov-arizona-restat` (2026-09-30) — 71 findings:** 4 in project code (thin JAR, CWEs pending), 64 in bundled deps (fat Thorntail JAR — WildFly Swarm/JBoss, all "Library: Vendor Notified"), 3 JS. Sandbox: `ov-arizona-restat` (GUID: `$VERACODE_SANDBOX_RESTAT_GUID`). Policy Scan upload in progress 2026-09-30.
+- **Restat `ov-arizona-restat` (2026-09-30) — Policy Scan 97/100, Conditional Pass:** 4 findings in policy report (1 High CWE-80 XSS `index.html:186` fix by 29/11/2026; 1 Medium CWE-73 `WebappResourceProvider.java:29`; 2 Medium CWE-601 `index.html:40,144`). Fat Thorntail JAR 64 bundled-dep findings NOT reported in Policy Scan — Veracode filters library code automatically.
 
 ## WSL2 limitations and known behaviors
 

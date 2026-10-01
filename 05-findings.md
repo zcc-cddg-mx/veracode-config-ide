@@ -94,22 +94,30 @@ framework base — el CWE-331 (`EncryptionUtils.java`) es específico de la rama
 
 ## Referencia del caso de prueba — Restat *(ov-arizona-restat — 2026-09-30)*
 
-Pipeline Scan sobre proyecto Thorntail (WildFly Swarm). **71 findings totales** distribuidos en 3 artefactos.
-CWEs del thin JAR pendientes de revisión en VS Code.
+Pipeline Scan: **71 findings** (4 thin JAR + 64 fat JAR + 3 JS).
+**Policy Scan (2026-09-30): Score 97/100 — Conditional Pass — 4 findings.**
 
-### Thin JAR — código propio (`restat-narayana-coordinator-0.0.0-SNAPSHOT.jar`)
+> **Nota clave:** el Policy Scan no reportó ninguno de los 64 findings del fat JAR thorntail.
+> Veracode filtra automáticamente el código de librerías bundleadas en el análisis de plataforma.
+> Solo los 4 findings del código propio aparecen en el reporte oficial.
 
-**4 findings** — origen: código propio del proyecto. CWEs a revisar en VS Code inline.
+### Policy Scan — findings del reporte oficial
 
-| Módulo | Findings | Acción |
-|---|---|---|
-| `restat-narayana-coordinator-0.0.0-SNAPSHOT.jar` | 4 | Revisar CWEs en VS Code — posible fix en código |
+| Flaw ID | Severidad | CWE | Archivo | Línea | Fix by |
+|---|---|---|---|---|---|
+| 225 | **High** | CWE-80 Basic XSS | `webapp/index.html` | 186 | 29/11/2026 ⚠️ |
+| 224 | Medium | CWE-73 Directory Traversal | `WebappResourceProvider.java` | 29 | 30/09/2027 |
+| 227 | Medium | CWE-601 Open Redirect | `webapp/index.html` | 40 | 30/09/2027 |
+| 226 | Medium | CWE-601 Open Redirect | `webapp/index.html` | 144 | 30/09/2027 |
 
-### Fat JAR — dependencias bundleadas (`restat-narayana-coordinator-thorntail.jar`)
+**Por qué "Conditional Pass":** el High (CWE-80) está dentro del período de gracia hasta 29/11/2026.
+Si no se corrige antes de esa fecha, el estado cambia a "Did Not Pass".
 
-**64 findings** — origen: dependencias runtime empaquetadas en el uber JAR.
-La extensión no puede mostrar diagnósticos inline (`Cannot locate source file`) porque
-los fuentes de WildFly Swarm y JBoss Modules no están en el workspace.
+**Módulos analizados:** thin JAR + JS zip (2 de 4 módulos). Los otros 2 son variantes de JS dentro del thin JAR, no entry points separados. El thorntail no fue seleccionado como entry point.
+
+### Pipeline Scan — Fat JAR (`restat-narayana-coordinator-thorntail.jar`)
+
+Pipeline Scan reportó **64 findings** — todos en dependencias runtime bundleadas. No aparecen en el Policy Scan.
 
 | Librería bundleada | Origen |
 |---|---|
@@ -118,8 +126,4 @@ los fuentes de WildFly Swarm y JBoss Modules no están en el workspace.
 | `org/yaml/snakeyaml/*` | SnakeYAML |
 | `__redirected/*` | JBoss JAXP redirects |
 
-**Mitigación aplicable a todos:** "Library: Vendor Notified" — el equipo no controla estas dependencias.
-
-### JS (`veracode-auto-pack-ov-arizona-restat-js-no-pm.zip`)
-
-**3 findings** — archivos de configuración JS. CWEs a confirmar en VS Code.
+Mitigación en plataforma si se suben al Policy Scan: "Library: Vendor Notified".
