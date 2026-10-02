@@ -56,6 +56,7 @@ Veracode en su flujo de desarrollo.
 | `./scripts/archive-artifacts.sh <proyecto> [filtro]` | Después del Pipeline Scan — preserva artefactos por proyecto |
 | `./scripts/prepare-artifacts.sh` | Antes de subir al sandbox — confirma que los artefactos existen |
 | `./scripts/list-sandboxes.py` | Listar sandboxes de la app con sus GUIDs |
+| `./scripts/cancel-scan.py [frontend\|backend\|core\|restat]` | Cancelar el build activo de un sandbox (pide confirmación) |
 | `./scripts/pipeline-scan.sh [frontend\|backend]` | Scan local rápido → genera JSON de findings |
 | `./scripts/check-build-status.py [frontend\|backend]` | Monitorear el Policy Scan via API |
 | `./scripts/download-report.py [frontend\|backend]` | Descargar el reporte PDF oficial |
@@ -68,7 +69,7 @@ Veracode en su flujo de desarrollo.
 |---|---|---|---|---|
 | Backend (`ov-arizona-backend-ecuador`) | Policy Scan | 98/100 | Did Not Pass | Fix `EncryptionUtils.java` + mitigaciones en plataforma → ver [06-optimizacion.md](06-optimizacion.md) |
 | Frontend (`ov-arizona-frontend-ecuador`) | Pipeline Scan | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
-| Backend base (`ov-arizona-core`) | Policy Scan en proceso | — | En evaluación | Artefactos subidos (2026-09-30), scan iniciado ~17:44 — monitorear con `check-build-status.py core` |
+| Backend base (`ov-arizona-core`) | Policy Scan relanzando | — | En evaluación | Build colgado cancelado (2026-10-02), relanzar con mismos 13 JARs de `~/veracode-artifacts/ov-arizona-core/2026-09-30/` |
 | Restat (`ov-arizona-restat`) | Policy Scan ✅ | 97/100 | **Conditional Pass** | CWE-80 High en `index.html:186` — fix by 29/11/2026 (en gracia). 3 Medium (CWE-73, CWE-601×2) |
 
 ## Aplicación registrada en Veracode (caso de prueba)
