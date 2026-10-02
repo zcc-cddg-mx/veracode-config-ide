@@ -19,6 +19,7 @@ SANDBOX_MAP = {
     "backend":  "VERACODE_SANDBOX_BACKEND_GUID",
     "core":     "VERACODE_SANDBOX_CORE_GUID",
     "restat":   "VERACODE_SANDBOX_RESTAT_GUID",
+    "voc":      "VERACODE_SANDBOX_VOC_GUID",
 }
 
 CA_CERT = os.environ.get("SSL_CERT_FILE", True)

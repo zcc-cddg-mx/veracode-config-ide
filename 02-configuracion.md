@@ -22,6 +22,7 @@ Dos juegos en el perfil de shell:
 | `VERACODE_SANDBOX_BACKEND_GUID` | UUID | GUID del sandbox backend (`ov-arizona-backend-ecuador`) |
 | `VERACODE_SANDBOX_CORE_GUID` | UUID | GUID del sandbox backend base (`ov-arizona-core`) |
 | `VERACODE_SANDBOX_RESTAT_GUID` | UUID | GUID del sandbox restat (`ov-arizona-restat`) |
+| `VERACODE_SANDBOX_VOC_GUID` | UUID | GUID del sandbox VOC (`ov-virtual-office-connector`) |
 | `VERACODE_ARTIFACT_FRONTEND` | nombre de archivo | Zip JS generado por la extensión en `/tmp/tempStaticScanDir/` |
 | `VERACODE_ARTIFACT_BACKEND_JARS` | lista separada por espacios | JARs backend con findings (opcional — ver `env.example.sh`) |
 

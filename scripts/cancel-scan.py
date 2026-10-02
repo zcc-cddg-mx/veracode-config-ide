@@ -18,6 +18,7 @@ from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 SANDBOX_MAP = {
     "frontend": "VERACODE_SANDBOX_FRONTEND_GUID",
     "backend":  "VERACODE_SANDBOX_BACKEND_GUID",
+    "voc":      "VERACODE_SANDBOX_VOC_GUID",
     "core":     "VERACODE_SANDBOX_CORE_GUID",
     "restat":   "VERACODE_SANDBOX_RESTAT_GUID",
 }
@@ -52,7 +53,7 @@ def resolve_numeric_ids(auth, verify, app_guid, sandbox_guid):
     return app_id, sandbox_id
 
 if len(sys.argv) < 2 or sys.argv[1] not in SANDBOX_MAP:
-    print(f"Uso: {sys.argv[0]} [frontend|backend|core|restat]")
+    print(f"Uso: {sys.argv[0]} [frontend|backend|core|restat|voc]")
     sys.exit(1)
 
 target = sys.argv[1]

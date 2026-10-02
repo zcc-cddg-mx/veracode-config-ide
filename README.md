@@ -71,6 +71,7 @@ Veracode en su flujo de desarrollo.
 | Frontend (`ov-arizona-frontend-ecuador`) | Pipeline Scan | — | Pendiente Policy Scan | Mitigaciones en plataforma (26 falsos positivos CWE-798) |
 | Backend base (`ov-arizona-core`) | Policy Scan relanzando | — | En evaluación | Build colgado cancelado (2026-10-02), relanzar con mismos 13 JARs de `~/veracode-artifacts/ov-arizona-core/2026-09-30/` |
 | Restat (`ov-arizona-restat`) | Policy Scan ✅ | 97/100 | **Conditional Pass** | CWE-80 High en `index.html:186` — fix by 29/11/2026 (en gracia). 3 Medium (CWE-73, CWE-601×2) |
+| VOC (`ov-virtual-office-connector`) | Policy Scan en proceso | — | En evaluación | 2 High CWE-89 SQL Injection en código propio. Artefacto subido (2026-10-02) — monitorear con `check-build-status.py voc` |
 
 ## Aplicación registrada en Veracode (caso de prueba)
 
